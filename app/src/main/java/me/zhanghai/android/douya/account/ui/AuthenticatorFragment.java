@@ -202,7 +202,7 @@ public class AuthenticatorFragment extends Fragment implements AuthenticateReque
         if (cancel) {
             errorView.requestFocus();
         } else {
-            mAuthenticateRequest.start(AUTH_TOKEN_TYPE, username, password);
+            mAuthenticateRequest.start(getContext(), username, password);
         }
     }
 

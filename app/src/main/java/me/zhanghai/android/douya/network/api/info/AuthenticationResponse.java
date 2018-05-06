@@ -5,22 +5,10 @@
 
 package me.zhanghai.android.douya.network.api.info;
 
-import com.google.gson.annotations.SerializedName;
 
+import lombok.Data;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
+@Data
 public class AuthenticationResponse {
-
-    @SerializedName("access_token")
-    public String accessToken;
-
-    @SerializedName("douban_user_name")
-    public String userName;
-
-    @SerializedName("douban_user_id")
-    public long userId;
-
-    @SerializedName("expires_in")
-    public long accessTokenExpiresIn;
-
-    @SerializedName("refresh_token")
-    public String refreshToken;
+    private UserDTO userDTO;
 }

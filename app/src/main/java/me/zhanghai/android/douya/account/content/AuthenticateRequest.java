@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.douya.account.content;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -41,13 +42,13 @@ public class AuthenticateRequest extends RequestFragment<AuthenticateRequest.Req
      */
     public AuthenticateRequest() {}
 
-    public void start(String authTokenType, String username, String password) {
-        start(new RequestState(authTokenType, username, password));
+    public void start(Context context,String username, String password) {
+        start(new RequestState(context,username, password));
     }
 
     @Override
     protected ApiRequest<AuthenticationResponse> onCreateRequest(RequestState requestState) {
-        return ApiService.getInstance().authenticate(requestState.authTokenType,
+        return ApiService.getInstance().authenticate(requestState.context,
                 requestState.username, requestState.password);
     }
 
@@ -73,12 +74,12 @@ public class AuthenticateRequest extends RequestFragment<AuthenticateRequest.Req
 
     public static class RequestState {
 
-        public String authTokenType;
+        public Context context;
         public String username;
         public String password;
 
-        public RequestState(String authTokenType, String username, String password) {
-            this.authTokenType = authTokenType;
+        public RequestState(Context context, String username, String password) {
+            this.context = context;
             this.username = username;
             this.password = password;
         }

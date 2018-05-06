@@ -13,6 +13,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.List;
 
+import me.zhanghai.android.douya.BuildConfig;
 import me.zhanghai.android.douya.account.info.AccountContract;
 import me.zhanghai.android.douya.network.GsonResponseBodyConverterFactory;
 import me.zhanghai.android.douya.network.Http;
@@ -46,6 +47,8 @@ import me.zhanghai.android.douya.network.api.info.frodo.UploadedImage;
 import me.zhanghai.android.douya.network.api.info.frodo.UserItemList;
 import me.zhanghai.android.douya.network.api.info.frodo.UserList;
 import me.zhanghai.android.douya.util.CollectionUtils;
+import me.zhanghai.android.douya.util.EncryptUtil;
+import me.zhanghai.android.douya.util.IpUtil;
 import me.zhanghai.android.douya.util.StringCompat;
 import me.zhanghai.android.douya.util.StringUtils;
 import me.zhanghai.android.douya.util.UriUtils;
@@ -130,57 +133,13 @@ public class ApiService {
                 .create(clientClass);
     }
 
-    public ApiRequest<AuthenticationResponse> authenticate(String authTokenType, String username,
+    public ApiRequest<AuthenticationResponse> authenticate(Context context, String username,
                                                            String password) {
-        switch (authTokenType) {
-            case AccountContract.AUTH_TOKEN_TYPE_API_V2:
-                return authenticateApiV2(username, password);
-            case AccountContract.AUTH_TOKEN_TYPE_FRODO:
-                return authenticateFrodo(username, password);
-            default:
-                throw new IllegalArgumentException("Unknown authTokenType: " + authTokenType);
-        }
+        //todo:获取clientID
+        return mAuthenticationService.authenticate(username, EncryptUtil.MD5(password), IpUtil.getIp(context),"", BuildConfig.VERSION_NAME,1);
     }
 
-    public ApiRequest<AuthenticationResponse> authenticate(String authTokenType,
-                                                           String refreshToken) {
-        switch (authTokenType) {
-            case AccountContract.AUTH_TOKEN_TYPE_API_V2:
-                return authenticateApiV2(refreshToken);
-            case AccountContract.AUTH_TOKEN_TYPE_FRODO:
-                return authenticateFrodo(refreshToken);
-            default:
-                throw new IllegalArgumentException("Unknown authTokenType: " + authTokenType);
-        }
-    }
 
-    private ApiRequest<AuthenticationResponse> authenticateApiV2(String username, String password) {
-        return mAuthenticationService.authenticate(ApiContract.Request.ApiV2.USER_AGENT,
-                ApiContract.Request.Authentication.ACCEPT_CHARSET, ApiCredential.ApiV2.KEY,
-                ApiCredential.ApiV2.SECRET, ApiContract.Request.Authentication.RedirectUris.API_V2,
-                ApiContract.Request.Authentication.GrantTypes.PASSWORD, username, password);
-    }
-
-    private ApiRequest<AuthenticationResponse> authenticateApiV2(String refreshToken) {
-        return mAuthenticationService.authenticate(ApiContract.Request.ApiV2.USER_AGENT,
-                ApiContract.Request.Authentication.ACCEPT_CHARSET, ApiCredential.ApiV2.KEY,
-                ApiCredential.ApiV2.SECRET, ApiContract.Request.Authentication.RedirectUris.API_V2,
-                ApiContract.Request.Authentication.GrantTypes.REFRESH_TOKEN, refreshToken);
-    }
-
-    private ApiRequest<AuthenticationResponse> authenticateFrodo(String username, String password) {
-        return mAuthenticationService.authenticate(ApiContract.Request.Frodo.USER_AGENT,
-                ApiContract.Request.Authentication.ACCEPT_CHARSET, ApiCredential.Frodo.KEY,
-                ApiCredential.Frodo.SECRET, ApiContract.Request.Authentication.RedirectUris.FRODO,
-                ApiContract.Request.Authentication.GrantTypes.PASSWORD, username, password);
-    }
-
-    private ApiRequest<AuthenticationResponse> authenticateFrodo(String refreshToken) {
-        return mAuthenticationService.authenticate(ApiContract.Request.Frodo.USER_AGENT,
-                ApiContract.Request.Authentication.ACCEPT_CHARSET, ApiCredential.Frodo.KEY,
-                ApiCredential.Frodo.SECRET, ApiContract.Request.Authentication.RedirectUris.FRODO,
-                ApiContract.Request.Authentication.GrantTypes.PASSWORD, refreshToken);
-    }
 
     public ApiRequest<NotificationCount> getNotificationCount() {
         return mFrodoService.getNotificationCount();
@@ -420,20 +379,10 @@ public class ApiService {
         @POST(ApiContract.Request.Authentication.URL)
         @FormUrlEncoded
         ApiRequest<AuthenticationResponse> authenticate(
-                @Header(Http.Headers.USER_AGENT) String userAgent,
-                @Header(Http.Headers.ACCEPT_CHARSET) String acceptCharset,
-                @Field("client_id") String clientId, @Field("client_secret") String clientSecret,
-                @Field("redirect_uri") String redirectUri, @Field("grant_type") String grantType,
-                @Field("username") String username, @Field("password") String password);
+                @Field("account") String account, @Field("password") String password,
+                @Field("ip") String ip, @Field("clintId") String clintId,
+                @Field("version") String version, @Field("password") int clientType);
 
-        @POST(ApiContract.Request.Authentication.URL)
-        @FormUrlEncoded
-        ApiRequest<AuthenticationResponse> authenticate(
-                @Header(Http.Headers.USER_AGENT) String userAgent,
-                @Header(Http.Headers.ACCEPT_CHARSET) String acceptCharset,
-                @Field("client_id") String clientId, @Field("client_secret") String clientSecret,
-                @Field("redirect_uri") String redirectUri, @Field("grant_type") String grantType,
-                @Field("refresh_token") String refreshToken);
     }
 
     public interface LifeStreamService {

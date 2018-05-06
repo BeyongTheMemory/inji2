@@ -13,12 +13,13 @@ import java.util.List;
 import me.zhanghai.android.douya.network.Http;
 
 public interface ApiContract {
+    String baseUrl = "http://106.14.77.185:80/";
 
     interface Request {
 
         interface Authentication {
 
-            String URL = "https://www.douban.com/service/auth2/token";
+            String URL = baseUrl + "pop-control/user/login";
 
             String ACCEPT_CHARSET = Http.Charsets.UTF8;
             interface RedirectUris {
