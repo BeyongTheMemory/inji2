@@ -35,6 +35,7 @@ import me.zhanghai.android.douya.link.NotImplementedManager;
 import me.zhanghai.android.douya.network.api.ApiContract.Response.Error.Codes;
 import me.zhanghai.android.douya.network.api.ApiError;
 import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.util.FragmentUtils;
 import me.zhanghai.android.douya.util.LogUtils;
 import me.zhanghai.android.douya.util.ToastUtils;
@@ -226,6 +227,7 @@ public class AuthenticatorFragment extends Fragment implements AuthenticateReque
                                       AuthenticateRequest.RequestState requestState,
                                       AuthenticationResponse response) {
 
+        //登陆成功后的逻辑
         Account account = new Account(requestState.username, AccountContract.ACCOUNT_TYPE);
 
         switch (mAuthMode) {
@@ -242,10 +244,11 @@ public class AuthenticatorFragment extends Fragment implements AuthenticateReque
                 break;
         }
 
-        AccountUtils.setUserName(account, response.userName);
-        AccountUtils.setUserId(account, response.userId);
-        AccountUtils.setAuthToken(account, AUTH_TOKEN_TYPE, response.accessToken);
-        AccountUtils.setRefreshToken(account, AUTH_TOKEN_TYPE, response.refreshToken);
+        //设置账号信息
+        UserDTO userDTO = response.getUserDTO();
+        AccountUtils.setUserName(account, userDTO.getName());
+        AccountUtils.setUserId(account, userDTO.getId());
+        AccountUtils.setUser(userDTO);
 
         Intent intent;
         switch (mAuthMode) {

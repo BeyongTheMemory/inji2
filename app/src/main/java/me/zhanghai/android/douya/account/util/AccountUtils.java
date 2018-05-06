@@ -29,6 +29,7 @@ import me.zhanghai.android.douya.account.ui.AddAccountActivity;
 import me.zhanghai.android.douya.account.ui.SelectAccountActivity;
 import me.zhanghai.android.douya.network.api.ApiAuthenticators;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.settings.info.Settings;
 import me.zhanghai.android.douya.util.GsonHelper;
 
@@ -373,22 +374,6 @@ public class AccountUtils {
         };
     }
 
-    public static void getAuthToken(Account account, String type, GetAuthTokenListener listener,
-                                    Handler handler) {
-        getAuthToken(account, type, makeGetAuthTokenCallback(listener), handler);
-    }
-
-    public static void getAuthToken(Account account, String type, GetAuthTokenListener listener) {
-        getAuthToken(account, type, listener, null);
-    }
-
-    public static void setAuthToken(Account account, String type, String authToken) {
-        getAccountManager().setAuthToken(account, type, authToken);
-    }
-
-    public static void invalidateAuthToken(String authToken) {
-        getAccountManager().invalidateAuthToken(AccountContract.ACCOUNT_TYPE, authToken);
-    }
 
     // User name is different from username: user name is the display name in User.name, but
     // username is the account name for logging in.
@@ -405,6 +390,7 @@ public class AccountUtils {
         AccountPreferences.forAccount(account).putString(AccountContract.KEY_USER_NAME, userName);
     }
 
+
     public static long getUserId(Account account) {
         return AccountPreferences.forAccount(account).getLong(AccountContract.KEY_USER_ID,
                 AccountContract.INVALID_USER_ID);
@@ -418,33 +404,14 @@ public class AccountUtils {
         AccountPreferences.forAccount(account).putLong(AccountContract.KEY_USER_ID, userId);
     }
 
-    public static String getRefreshToken(Account account, String authTokenType) {
-        return AccountPreferences.forAccount(account).getString(getRefreshTokenKey(authTokenType),
-                null);
-    }
 
-    public static void setRefreshToken(Account account, String authTokenType, String refreshToken) {
-        AccountPreferences.forAccount(account).putString(getRefreshTokenKey(authTokenType),
-                refreshToken);
-    }
 
-    private static String getRefreshTokenKey(String authTokenType) {
-        switch (authTokenType) {
-            case AccountContract.AUTH_TOKEN_TYPE_API_V2:
-                return AccountContract.KEY_REFRESH_TOKEN_API_V2;
-            case AccountContract.AUTH_TOKEN_TYPE_FRODO:
-                return AccountContract.KEY_REFRESH_TOKEN_FRODO;
-            default:
-                throw new IllegalArgumentException("Unknown authTokenType: " + authTokenType);
-        }
-    }
-
-    public static User getUser(Account account) {
+    public static UserDTO getUser(Account account) {
         String userInfoJson = AccountPreferences.forAccount(account).getString(
                 AccountContract.KEY_USER_INFO, null);
         if (!TextUtils.isEmpty(userInfoJson)) {
             try {
-                return GsonHelper.GSON.fromJson(userInfoJson, User.class);
+                return GsonHelper.GSON.fromJson(userInfoJson, UserDTO.class);
             } catch (JsonParseException e) {
                 e.printStackTrace();
             }
@@ -452,17 +419,17 @@ public class AccountUtils {
         return null;
     }
 
-    public static void setUser(Account account, User user) {
-        String userInfoJson = GsonHelper.GSON.toJson(user, User.class);
+    public static void setUser(Account account, UserDTO user) {
+        String userInfoJson = GsonHelper.GSON.toJson(user, UserDTO.class);
         AccountPreferences.forAccount(account).putString(AccountContract.KEY_USER_INFO,
                 userInfoJson);
     }
 
-    public static User getUser() {
+    public static UserDTO getUser() {
         return getUser(getActiveAccount());
     }
 
-    public static void setUser(User user) {
+    public static void setUser(UserDTO user) {
         setUser(getActiveAccount(), user);
     }
 }
