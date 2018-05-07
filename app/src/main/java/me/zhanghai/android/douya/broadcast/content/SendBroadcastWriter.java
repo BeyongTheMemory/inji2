@@ -240,7 +240,7 @@ class SendBroadcastWriter extends ResourceWriter<SendBroadcastWriter> {
         LogUtils.e(error.toString());
         Context context = getContext();
         ToastUtils.show(context.getString(R.string.broadcast_send_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         EventBusUtils.postAsync(new BroadcastSendErrorEvent(mId, this));
 
@@ -266,7 +266,7 @@ class SendBroadcastWriter extends ResourceWriter<SendBroadcastWriter> {
         LogUtils.e(error.toString());
         Context context = getContext();
         ToastUtils.showLong(context.getString(R.string.broadcast_send_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
         notifyError(error);
 
         EventBusUtils.postAsync(new BroadcastSendErrorEvent(mId, this));
@@ -278,7 +278,7 @@ class SendBroadcastWriter extends ResourceWriter<SendBroadcastWriter> {
         Context context = getContext();
         String contentTitle = context.getString(
                 R.string.broadcast_send_failed_notification_title_format, ApiError.getErrorString(
-                        error, context));
+                        error));
         String contentText = context.getString(R.string.broadcast_send_failed_notification_text);
         SendBroadcastFragment.LinkInfo linkInfo;
         if (!TextUtils.isEmpty(mLinkUrl)) {

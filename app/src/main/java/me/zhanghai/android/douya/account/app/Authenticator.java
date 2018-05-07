@@ -13,17 +13,10 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import me.zhanghai.android.douya.account.info.AccountContract;
 import me.zhanghai.android.douya.account.ui.AuthenticatorActivity;
 import me.zhanghai.android.douya.account.util.AccountUtils;
-import me.zhanghai.android.douya.account.util.AuthenticatorUtils;
-import me.zhanghai.android.douya.network.api.ApiContract.Response.Error.Codes;
-import me.zhanghai.android.douya.network.api.ApiError;
-import me.zhanghai.android.douya.network.api.ApiService;
-import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
-import me.zhanghai.android.douya.util.LogUtils;
 import me.zhanghai.android.douya.util.MoreTextUtils;
 
 public class Authenticator extends AbstractAccountAuthenticator {

@@ -315,7 +315,7 @@ public class BroadcastFragment extends Fragment implements BroadcastAndCommentLi
     public void onLoadBroadcastError(int requestCode, ApiError error) {
         LogUtils.e(error.toString());
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override
@@ -358,7 +358,7 @@ public class BroadcastFragment extends Fragment implements BroadcastAndCommentLi
     public void onLoadCommentListError(int requestCode, ApiError error) {
         LogUtils.e(error.toString());
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override

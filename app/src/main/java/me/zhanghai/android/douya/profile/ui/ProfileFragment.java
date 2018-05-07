@@ -27,7 +27,6 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import me.zhanghai.android.customtabshelper.CustomTabsHelperFragment;
 import me.zhanghai.android.douya.R;
-import me.zhanghai.android.douya.followship.content.FollowUserManager;
 import me.zhanghai.android.douya.link.NotImplementedManager;
 import me.zhanghai.android.douya.network.api.ApiError;
 import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
@@ -35,7 +34,6 @@ import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
 import me.zhanghai.android.douya.network.api.info.frodo.Diary;
 import me.zhanghai.android.douya.network.api.info.frodo.SimpleReview;
-import me.zhanghai.android.douya.network.api.info.frodo.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.frodo.UserItems;
 import me.zhanghai.android.douya.profile.content.ProfileResource;
 import me.zhanghai.android.douya.profile.util.ProfileUtils;
@@ -245,7 +243,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
             mContentStateLayout.setError();
         }
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override

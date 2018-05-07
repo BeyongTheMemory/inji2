@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.douya.network.api;
 
-import android.content.Context;
 import android.util.SparseIntArray;
 
 import org.json.JSONException;
@@ -20,6 +19,7 @@ import me.zhanghai.android.douya.network.AuthenticationException;
 import me.zhanghai.android.douya.network.ResponseConversionException;
 import me.zhanghai.android.douya.network.api.ApiContract.Response.Error;
 import me.zhanghai.android.douya.network.api.ApiContract.Response.Error.Codes.*;
+import me.zhanghai.android.douya.util.StringUtils;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -127,6 +127,7 @@ public class ApiError extends Throwable {
     public String localizedMessage;
     public String message;
     public String request;
+    private String errMsg;
 
     public ApiError(Throwable throwable) {
         super(throwable);
@@ -156,6 +157,10 @@ public class ApiError extends Throwable {
         this(response, response.errorBody());
     }
 
+    public ApiError(String err) {
+        this.errMsg = err;
+    }
+
     private void parseResponse() {
         try {
             bodyJson = new JSONObject(bodyString);
@@ -169,39 +174,39 @@ public class ApiError extends Throwable {
         }
     }
 
-    public int getErrorStringRes() {
+    public String getErrorString() {
+
+        if(!StringUtils.isBlank(errMsg)){
+            return errMsg;
+        }
 
         if (response == null) {
             // Return as the wrapped error.
             // We only have two constructors, so this cast is safe.
-            return getErrorStringRes(this.getCause());
+            return getErrorString(this.getCause());
         }
 
-        Integer StringRes = ERROR_CODE_STRING_RES_MAP.get(code);
-        return StringRes != 0 ? StringRes : R.string.api_error_unknown;
+        return "未知错误";
     }
 
-    public static int getErrorStringRes(Throwable error) {
+    public static String getErrorString(Throwable error) {
         if (error instanceof ResponseConversionException) {
-            return R.string.api_error_parse;
+            return "解析错误";
         } else if (error instanceof AuthenticationException) {
-            return R.string.api_error_auth_failure;
+            return "授权错误";
         } else if (error instanceof SocketTimeoutException) {
-            return R.string.api_error_timeout;
+            return "请求超时";
         } else if (error instanceof UnknownHostException) {
-            return R.string.api_error_no_connection;
+            return "无网络连接";
         } else if (error instanceof IOException) {
-            return R.string.api_error_network;
+            return "网络错误";
         } else if (error instanceof ApiError) {
-            return ((ApiError) error).getErrorStringRes();
+            return ((ApiError) error).getErrorString();
         } else {
-            return R.string.api_error_unknown;
+            return "未知错误";
         }
     }
 
-    public static String getErrorString(Throwable error, Context context) {
-        return context.getString(getErrorStringRes(error));
-    }
 
     @Override
     public String toString() {

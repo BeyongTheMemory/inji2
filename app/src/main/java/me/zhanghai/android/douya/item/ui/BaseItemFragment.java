@@ -276,7 +276,7 @@ public abstract class BaseItemFragment<SimpleItemType extends CollectableItem,
             mContentStateLayout.setError();
         }
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override

@@ -31,10 +31,9 @@ import me.zhanghai.android.douya.account.content.AuthenticateRequest;
 import me.zhanghai.android.douya.account.info.AccountContract;
 import me.zhanghai.android.douya.account.util.AccountUtils;
 import me.zhanghai.android.douya.account.util.AuthenticatorUtils;
-import me.zhanghai.android.douya.link.NotImplementedManager;
 import me.zhanghai.android.douya.network.api.ApiContract.Response.Error.Codes;
 import me.zhanghai.android.douya.network.api.ApiError;
-import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
+import me.zhanghai.android.douya.network.api.info.response.AuthenticationResponse;
 import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.util.FragmentUtils;
 import me.zhanghai.android.douya.util.LogUtils;
@@ -279,7 +278,7 @@ public class AuthenticatorFragment extends Fragment implements AuthenticateReque
 
         LogUtils.e(error.toString());
         if (error.bodyJson != null && error.code != Codes.Custom.INVALID_ERROR_RESPONSE) {
-            String errorString = getString(error.getErrorStringRes());
+            String errorString = error.getErrorString();
             Activity activity = getActivity();
             switch (error.code) {
                 case Codes.Token.INVALID_APIKEY:

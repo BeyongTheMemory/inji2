@@ -188,7 +188,7 @@ public class RebroadcastBroadcastFragment extends Fragment implements BroadcastR
     public void onLoadBroadcastError(int requestCode, ApiError error) {
         LogUtils.e(error.toString());
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override

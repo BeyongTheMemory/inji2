@@ -13,7 +13,7 @@ import me.zhanghai.android.douya.network.RequestFragment;
 import me.zhanghai.android.douya.network.api.ApiRequest;
 import me.zhanghai.android.douya.network.api.ApiError;
 import me.zhanghai.android.douya.network.api.ApiService;
-import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
+import me.zhanghai.android.douya.network.api.info.response.AuthenticationResponse;
 import me.zhanghai.android.douya.util.FragmentUtils;
 
 public class AuthenticateRequest extends RequestFragment<AuthenticateRequest.RequestState,
@@ -61,7 +61,7 @@ public class AuthenticateRequest extends RequestFragment<AuthenticateRequest.Req
     protected void onRequestFinished(boolean successful, RequestState requestState,
                                      AuthenticationResponse response, ApiError error) {
         getListener().onAuthenticateFinished(getRequestCode());
-        if (successful) {
+        if (successful && response.getUserDTO() != null) {
             getListener().onAuthenticateSuccess(getRequestCode(), requestState, response);
         } else {
             getListener().onAuthenticateError(getRequestCode(), requestState, error);

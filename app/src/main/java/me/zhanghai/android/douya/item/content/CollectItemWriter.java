@@ -128,7 +128,7 @@ class CollectItemWriter extends RequestResourceWriter<CollectItemWriter, ItemCol
         LogUtils.e(error.toString());
         Context context = getContext();
         ToastUtils.show(context.getString(R.string.item_collect_failed_format,
-                mItemType.getName(context), ApiError.getErrorString(error, context)), context);
+                mItemType.getName(context), ApiError.getErrorString(error)), context);
 
         EventBusUtils.postAsync(new ItemCollectErrorEvent(mItemType, mItemId, this));
 

@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import me.zhanghai.android.douya.network.api.info.response.BaseResponse;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -44,29 +45,20 @@ public class CallApiRequest<T> implements ApiRequest<T> {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull final Response<T> response) {
                 if (response.isSuccessful()) {
-                    sMainThreadHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onResponse(response.body());
-                        }
-                    });
+                    BaseResponse baseResponse = (BaseResponse) response.body();
+                    if(baseResponse.getResult() != null && baseResponse.getResult() == 1){
+                        sMainThreadHandler.post(() -> callback.onResponse(response.body()));
+                    }else {
+                        sMainThreadHandler.post(() -> callback.onErrorResponse(new ApiError(response)));
+                    }
+
                 } else {
-                    sMainThreadHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onErrorResponse(new ApiError(response));
-                        }
-                    });
+                    sMainThreadHandler.post(() -> callback.onErrorResponse(new ApiError(response)));
                 }
             }
             @Override
             public void onFailure(@NonNull Call<T> call, @NonNull final Throwable t) {
-                sMainThreadHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onErrorResponse(new ApiError(t));
-                    }
-                });
+                sMainThreadHandler.post(() -> callback.onErrorResponse(new ApiError(t)));
             }
         });
     }

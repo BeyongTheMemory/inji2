@@ -100,7 +100,7 @@ class FollowUserWriter extends RequestResourceWriter<FollowUserWriter, User> {
         Context context = getContext();
         ToastUtils.show(context.getString(mFollow ? R.string.user_follow_failed_format
                         : R.string.user_unfollow_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         boolean notified = false;
         if (mUser != null && error instanceof ApiError) {

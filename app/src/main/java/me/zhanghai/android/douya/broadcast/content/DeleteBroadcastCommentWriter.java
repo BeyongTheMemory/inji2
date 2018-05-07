@@ -59,7 +59,7 @@ class DeleteBroadcastCommentWriter extends RequestResourceWriter<DeleteBroadcast
         LogUtils.e(error.toString());
         Context context = getContext();
         ToastUtils.show(context.getString(R.string.broadcast_comment_delete_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         stopSelf();
     }

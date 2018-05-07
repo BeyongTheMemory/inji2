@@ -11,14 +11,14 @@ import android.text.TextUtils;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
+import java.io.IOException;
 import java.util.List;
 
 import me.zhanghai.android.douya.BuildConfig;
 import me.zhanghai.android.douya.account.info.AccountContract;
 import me.zhanghai.android.douya.network.GsonResponseBodyConverterFactory;
-import me.zhanghai.android.douya.network.Http;
-import me.zhanghai.android.douya.network.api.credential.ApiCredential;
-import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
+import me.zhanghai.android.douya.network.api.info.request.LoginRequest;
+import me.zhanghai.android.douya.network.api.info.response.AuthenticationResponse;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
 import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
@@ -55,15 +55,18 @@ import me.zhanghai.android.douya.util.StringUtils;
 import me.zhanghai.android.douya.util.UriUtils;
 import me.zhanghai.android.douya.util.UrlUtil;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -101,11 +104,19 @@ public class ApiService {
     private static AuthenticationService createAuthenticationService() {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(ApiCallAdapter.Factory.create())
-                .addConverterFactory(GsonResponseBodyConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 // Make Retrofit happy.
                 .baseUrl(UrlUtil.BASE_URL)
                 .client(new OkHttpClient.Builder()
                         .addNetworkInterceptor(new StethoInterceptor())
+                        .addInterceptor(chain -> {
+                            Request request = chain.request();
+                            Request.Builder requestBuilder = request.newBuilder();
+                            request = requestBuilder
+                                    .addHeader("Content-Type", "application/json;charset=UTF-8")
+                                    .build();
+                            return chain.proceed(request);
+                        })
                         .build())
                 .build()
                 .create(AuthenticationService.class);
@@ -139,7 +150,7 @@ public class ApiService {
     public ApiRequest<AuthenticationResponse> authenticate(Context context, String username,
                                                            String password) {
         //todo:获取clientID
-        return mAuthenticationService.authenticate(username, EncryptUtil.MD5(password), IpUtil.getIp(context),"", BuildConfig.VERSION_NAME,1);
+        return mAuthenticationService.authenticate(new LoginRequest(username, EncryptUtil.MD5(password), IpUtil.getIp(context),"", BuildConfig.VERSION_NAME,1));
     }
 
 
@@ -380,11 +391,7 @@ public class ApiService {
     public interface AuthenticationService {
 
         @POST(ApiContract.Request.Authentication.URL)
-        @FormUrlEncoded
-        ApiRequest<AuthenticationResponse> authenticate(
-                @Field("account") String account, @Field("password") String password,
-                @Field("ip") String ip, @Field("clintId") String clintId,
-                @Field("version") String version, @Field("password") int clientType);
+        ApiRequest<AuthenticationResponse> authenticate(@Body LoginRequest loginRequest);
 
     }
 

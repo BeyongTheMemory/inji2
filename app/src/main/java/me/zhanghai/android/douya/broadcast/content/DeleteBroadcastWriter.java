@@ -97,7 +97,7 @@ class DeleteBroadcastWriter extends RequestResourceWriter<DeleteBroadcastWriter,
         ToastUtils.show(context.getString(mBroadcast != null && mBroadcast.isSimpleRebroadcast() ?
                         R.string.broadcast_unrebroadcast_failed_format
                         : R.string.broadcast_delete_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         stopSelf();
     }

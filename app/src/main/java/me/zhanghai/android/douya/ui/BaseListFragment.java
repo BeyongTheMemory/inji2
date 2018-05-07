@@ -115,7 +115,7 @@ public abstract class BaseListFragment<T> extends Fragment {
     protected void onLoadListError(ApiError error) {
         LogUtils.e(error.toString());
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     protected void onListChanged(List<T> newList) {

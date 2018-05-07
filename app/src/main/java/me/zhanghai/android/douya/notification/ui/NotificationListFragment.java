@@ -122,7 +122,7 @@ public class NotificationListFragment extends Fragment implements NotificationLi
     public void onLoadNotificationListError(int requestCode, ApiError error) {
         LogUtils.e(error.toString());
         Activity activity = getActivity();
-        ToastUtils.show(ApiError.getErrorString(error, activity), activity);
+        ToastUtils.show(ApiError.getErrorString(error), activity);
     }
 
     @Override

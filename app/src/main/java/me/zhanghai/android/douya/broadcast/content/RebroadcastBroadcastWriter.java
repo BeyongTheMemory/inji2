@@ -104,7 +104,7 @@ class RebroadcastBroadcastWriter
         LogUtils.e(error.toString());
         Context context = getContext();
         ToastUtils.show(context.getString(R.string.broadcast_rebroadcast_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         // Must notify to reset pending status. Off-screen items also needs to be invalidated.
         EventBusUtils.postAsync(new BroadcastWriteFinishedEvent(mBroadcastId, this));

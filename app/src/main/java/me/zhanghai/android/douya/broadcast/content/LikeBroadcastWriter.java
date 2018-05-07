@@ -72,7 +72,7 @@ class LikeBroadcastWriter extends RequestResourceWriter<LikeBroadcastWriter, Bro
         Context context = getContext();
         ToastUtils.show(context.getString(mLike ? R.string.broadcast_like_failed_format
                         : R.string.broadcast_unlike_failed_format,
-                ApiError.getErrorString(error, context)), context);
+                ApiError.getErrorString(error)), context);
 
         // Must notify to reset pending status. Off-screen items also needs to be invalidated.
         EventBusUtils.postAsync(new BroadcastWriteFinishedEvent(mBroadcastId, this));
