@@ -150,7 +150,8 @@ public class AuthenticatorFragment extends Fragment implements AuthenticateReque
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NotImplementedManager.signUp(getActivity());
+                //todo:跳转至注册页面
+                //NotImplementedManager.signUp(getActivity());
             }
         });
 

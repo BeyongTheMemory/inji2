@@ -14,6 +14,7 @@ import java.util.List;
 
 import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.frodo.Diary;
 import me.zhanghai.android.douya.network.api.info.frodo.SimpleReview;
@@ -129,6 +130,7 @@ public class ProfileDataAdapter extends BarrierDataAdapter<ProfileDataAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //todo:查看用户各类兴趣列表
         switch (Items.values()[position]) {
             case INTRODUCTION: {
                 ProfileIntroductionLayout layout = ((ProfileIntroductionLayout) holder.getChild());
@@ -144,21 +146,21 @@ public class ProfileDataAdapter extends BarrierDataAdapter<ProfileDataAdapter.Vi
                 ((ProfileFollowshipLayout) holder.getChild()).bind(mData.user,
                         mData.followingList);
                 break;
-            case DIARIES:
-                ((ProfileDiariesLayout) holder.getChild()).bind(mData.user, mData.diaryList);
-                break;
-            case BOOKS:
-                ((ProfileBooksLayout) holder.getChild()).bind(mData.user, mData.userItemList);
-                break;
-            case MOVIES:
-                ((ProfileMoviesLayout) holder.getChild()).bind(mData.user, mData.userItemList);
-                break;
-            case MUSIC:
-                ((ProfileMusicLayout) holder.getChild()).bind(mData.user, mData.userItemList);
-                break;
-            case REVIEWS:
-                ((ProfileReviewsLayout) holder.getChild()).bind(mData.user, mData.reviewList);
-                break;
+//            case DIARIES:
+//                ((ProfileDiariesLayout) holder.getChild()).bind(mData.user, mData.diaryList);
+//                break;
+//            case BOOKS:
+//                ((ProfileBooksLayout) holder.getChild()).bind(mData.user, mData.userItemList);
+//                break;
+//            case MOVIES:
+//                ((ProfileMoviesLayout) holder.getChild()).bind(mData.user, mData.userItemList);
+//                break;
+//            case MUSIC:
+//                ((ProfileMusicLayout) holder.getChild()).bind(mData.user, mData.userItemList);
+//                break;
+//            case REVIEWS:
+//                ((ProfileReviewsLayout) holder.getChild()).bind(mData.user, mData.reviewList);
+//                break;
             default:
                 throw new IllegalArgumentException();
         }
@@ -166,14 +168,14 @@ public class ProfileDataAdapter extends BarrierDataAdapter<ProfileDataAdapter.Vi
 
     public static class Data {
 
-        public User user;
+        public UserDTO user;
         public List<Broadcast> broadcastList;
-        public List<SimpleUser> followingList;
+        public List<UserDTO> followingList;
         public List<Diary> diaryList;
         public List<UserItems> userItemList;
         public List<SimpleReview> reviewList;
 
-        public Data(User user, List<Broadcast> broadcastList, List<SimpleUser> followingList,
+        public Data(UserDTO user, List<Broadcast> broadcastList, List<UserDTO> followingList,
                     List<Diary> diaryList, List<UserItems> userItemList,
                     List<SimpleReview> reviewList) {
             this.user = user;

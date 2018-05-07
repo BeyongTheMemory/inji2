@@ -32,6 +32,7 @@ import me.zhanghai.android.douya.link.UriHandler;
 import me.zhanghai.android.douya.network.api.ApiError;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.profile.ui.ProfileActivity;
 import me.zhanghai.android.douya.settings.ui.SettingsActivity;
 import me.zhanghai.android.douya.util.TintHelper;
@@ -229,7 +230,7 @@ public class NavigationFragment extends Fragment implements OnAccountsUpdateList
     public void onLoadUserError(int requestCode, ApiError error) {}
 
     @Override
-    public void onUserChanged(int requestCode, User newUser) {
+    public void onUserChanged(int requestCode, UserDTO newUser) {
         mHeaderLayout.bind();
         mNavigationViewAdapter.onUserChanged();
     }
@@ -240,13 +241,9 @@ public class NavigationFragment extends Fragment implements OnAccountsUpdateList
     @Override
     public void onUserWriteFinished(int requestCode) {}
 
-    @Override
-    public SimpleUser getPartialUser(Account account) {
-        return mUserResourceMap.get(account).getPartialUser();
-    }
 
     @Override
-    public User getUser(Account account) {
+    public UserDTO getUser(Account account) {
         return mUserResourceMap.get(account).get();
     }
 
@@ -256,11 +253,11 @@ public class NavigationFragment extends Fragment implements OnAccountsUpdateList
         Intent intent;
         if (userResource.has()) {
             // User info contains information such as isFollowed, which is affected by active user.
-            intent = ProfileActivity.makeIntent((SimpleUser) userResource.get(), getActivity());
+            intent = ProfileActivity.makeIntent( userResource.get(), getActivity());
         } else {
             // If we don't have user info, then user must also be partial. In this case we
             // can only pass user id or uid.
-            intent = ProfileActivity.makeIntent(userResource.getUserIdOrUid(), getActivity());
+            intent = ProfileActivity.makeIntent(userResource.getUserId(), getActivity());
         }
         startActivity(intent);
     }

@@ -30,7 +30,7 @@ public class UserDiaryListResource extends MoreBaseListResourceFragment<DiaryLis
 
     private static final String KEY_PREFIX = UserDiaryListResource.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private static final String EXTRA_user_id = KEY_PREFIX + "user_id";
 
     private String mUserIdOrUid;
 
@@ -64,7 +64,7 @@ public class UserDiaryListResource extends MoreBaseListResourceFragment<DiaryLis
 
     protected UserDiaryListResource setArguments(String userIdOrUid) {
         FragmentUtils.ensureArguments(this)
-                .putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
+                .putString(EXTRA_user_id, userIdOrUid);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class UserDiaryListResource extends MoreBaseListResourceFragment<DiaryLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUserIdOrUid = getArguments().getString(EXTRA_USER_ID_OR_UID);
+        mUserIdOrUid = getArguments().getString(EXTRA_user_id);
     }
 
     @Override

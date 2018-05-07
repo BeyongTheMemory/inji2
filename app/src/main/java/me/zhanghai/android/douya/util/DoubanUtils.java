@@ -20,6 +20,7 @@ import me.zhanghai.android.douya.network.api.info.frodo.SimpleUser;
 public class DoubanUtils {
 
     private static final Map<String, String> INTEREST_TYPE_URL_MAP;
+
     static {
         INTEREST_TYPE_URL_MAP = new HashMap<>();
         INTEREST_TYPE_URL_MAP.put("热门精选", "https://www.douban.com/interest/1/1/");
@@ -65,9 +66,11 @@ public class DoubanUtils {
         INTEREST_TYPE_URL_MAP.put("美容护肤", "https://www.douban.com/interest/3/6/");
         INTEREST_TYPE_URL_MAP.put("户外运动", "https://www.douban.com/interest/3/7/");
     }
+
     private static final String INTEREST_URL_DEFAULT = "https://www.douban.com/interest/1/1/";
 
-    private DoubanUtils() {}
+    private DoubanUtils() {
+    }
 
     public static void addMentionString(EditText editText) {
         Editable editable = editText.getText();
@@ -204,12 +207,8 @@ public class DoubanUtils {
         return "https://www.douban.com/people/" + userIdOrUid + "/status/" + broadcastId + "/";
     }
 
-    public static String makeBroadcastListUrl(String uidOrUserId, String topic) {
-        if (!TextUtils.isEmpty(uidOrUserId)) {
-            return "https://www.douban.com/people/" + uidOrUserId + "/statuses/";
-        } else {
-            return "https://www.douban.com/update/topic/" + Uri.encode(topic) + "/";
-        }
+    public static String makeBroadcastListUrl(Long uidOrUserId, String topic) {
+        return "https://www.douban.com/update/topic/" + Uri.encode(topic) + "/";
     }
 
     public static String makeMovieUrl(long itemId) {
@@ -224,7 +223,7 @@ public class DoubanUtils {
         return "douban://douban.com/user/" + userId;
     }
 
-    public static String makeUserUrl(String uidOrUserId) {
+    public static String makeUserUrl(Long uidOrUserId) {
         return "https://www.douban.com/people/" + uidOrUserId + "/";
     }
 

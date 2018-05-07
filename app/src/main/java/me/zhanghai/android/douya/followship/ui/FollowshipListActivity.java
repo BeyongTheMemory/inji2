@@ -14,7 +14,7 @@ public abstract class FollowshipListActivity extends AppCompatActivity {
 
     private static final String KEY_PREFIX = FollowshipListActivity.class.getName() + '.';
 
-    protected static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    protected static final String EXTRA_user_id = KEY_PREFIX + "user_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public abstract class FollowshipListActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            String userIdOrUid = getIntent().getStringExtra(EXTRA_USER_ID_OR_UID);
+            String userIdOrUid = getIntent().getStringExtra(EXTRA_user_id);
             FragmentUtils.add(onCreateActivityFragment(userIdOrUid), this, android.R.id.content);
         }
     }

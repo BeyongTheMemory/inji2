@@ -30,6 +30,7 @@ import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.followship.content.FollowUserManager;
 import me.zhanghai.android.douya.link.NotImplementedManager;
 import me.zhanghai.android.douya.network.api.ApiError;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
 import me.zhanghai.android.douya.network.api.info.frodo.Diary;
@@ -55,8 +56,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
 
     private static final String KEY_PREFIX = ProfileFragment.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
-    private static final String EXTRA_SIMPLE_USER = KEY_PREFIX + "simple_user";
+    private static final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private static final String EXTRA_USER = KEY_PREFIX + "user";
 
     @BindView(R.id.scroll)
@@ -77,9 +77,8 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
     @BindView(R.id.content)
     RecyclerView mContentList;
 
-    private String mUserIdOrUid;
-    private me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser mSimpleUser;
-    private User mUser;
+    private Long mUserId;
+    private UserDTO mUser;
 
     private ProfileResource mResource;
 
@@ -90,8 +89,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
         //noinspection deprecation
         ProfileFragment fragment = new ProfileFragment();
         Bundle arguments = FragmentUtils.ensureArguments(fragment);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
-        arguments.putParcelable(EXTRA_SIMPLE_USER, simpleUser);
+        arguments.putString(EXTRA_USER_ID, userIdOrUid);
         arguments.putParcelable(EXTRA_USER, user);
         return fragment;
     }
@@ -106,8 +104,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
-        mSimpleUser = arguments.getParcelable(EXTRA_SIMPLE_USER);
+        mUserId = arguments.getLong(EXTRA_USER_ID);
         mUser = arguments.getParcelable(EXTRA_USER);
 
         setHasOptionsMenu(true);
@@ -134,7 +131,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
         super.onActivityCreated(savedInstanceState);
 
         CustomTabsHelperFragment.attachTo(this);
-        mResource = ProfileResource.attachTo(mUserIdOrUid, mSimpleUser, mUser, this);
+        mResource = ProfileResource.attachTo(mUserId, mUser, this);
 
         mScrollLayout.setListener(new ProfileLayout.Listener() {
             @Override
@@ -156,8 +153,6 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
 
         if (mResource.hasUser()) {
             mHeaderLayout.bindUser(mResource.getUser());
-        } else if (mResource.hasSimpleUser()) {
-            mHeaderLayout.bindSimpleUser(mResource.getSimpleUser());
         }
         mHeaderLayout.setListener(this);
         mToolbar.setOnDoubleClickListener(view -> {
@@ -254,7 +249,7 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
     }
 
     @Override
-    public void onUserChanged(int requestCode, User newUser) {
+    public void onUserChanged(int requestCode, UserDTO newUser) {
         // WORKAROUND: Fix for LayoutTransition visual glitch when view is scrolling.
         if (!mScrollLayout.isHeaderOpen()) {
             for (ViewGroup animateChangesLayout : mAnimateChangesLayouts) {
@@ -275,9 +270,10 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
         mHeaderLayout.bindUser(mResource.getUser());
     }
 
+
     @Override
-    public void onChanged(int requestCode, User newUser, List<Broadcast> newBroadcastList,
-                          List<SimpleUser> newFollowingList, List<Diary> newDiaryList,
+    public void onChanged(int requestCode, UserDTO newUser, List<Broadcast> newBroadcastList,
+                          List<UserDTO> newFollowingList, List<Diary> newDiaryList,
                           List<UserItems> newUserItemList, List<SimpleReview> newReviewList) {
         mAdapter.setData(new ProfileDataAdapter.Data(newUser, newBroadcastList, newFollowingList,
                 newDiaryList, newUserItemList, newReviewList));
@@ -288,8 +284,9 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
     }
 
     private void sendDoumail() {
-        String userIdOrUid = mResource.getUserIdOrUid();
-        NotImplementedManager.sendDoumail(userIdOrUid, getActivity());
+        //todo：发送私信
+        Long userId = mResource.getUserId();
+        NotImplementedManager.sendDoumail(userId, getActivity());
     }
 
     private void share() {
@@ -301,30 +298,34 @@ public class ProfileFragment extends Fragment implements ProfileResource.Listene
     }
 
     private String makeUrl() {
-        if (mResource.hasSimpleUser()) {
-            return mResource.getSimpleUser().getUrl();
-        } else {
-            return DoubanUtils.makeUserUrl(mResource.getUserIdOrUid());
-        }
+        //todo:关注用户？
+        return DoubanUtils.makeUserUrl(mResource.getUserId());
+//        if (mResource.hasSimpleUser()) {
+//            return mResource.getSimpleUser().getUrl();
+//        } else {
+//            return DoubanUtils.makeUserUrl(mResource.getUserId());
+//        }
     }
 
     @Override
-    public void onEditProfile(User user) {
+    public void onEditProfile(UserDTO user) {
         NotImplementedManager.editProfile(getActivity());
     }
 
     @Override
-    public void onFollowUser(User user, boolean follow) {
-        if (follow) {
-            FollowUserManager.getInstance().write(user, true, getActivity());
-        } else {
-            ConfirmUnfollowUserDialogFragment.show(this);
-        }
+    public void onFollowUser(UserDTO user, boolean follow) {
+        //todo：关注用户
+//        if (follow) {
+//            FollowUserManager.getInstance().write(user, true, getActivity());
+//        } else {
+//            ConfirmUnfollowUserDialogFragment.show(this);
+//        }
     }
 
     @Override
     public void onUnfollowUser() {
-        FollowUserManager.getInstance().write(mResource.getUser(), false, getActivity());
+        //todo：取关
+        //FollowUserManager.getInstance().write(mResource.getUser(), false, getActivity());
     }
 
     @Override

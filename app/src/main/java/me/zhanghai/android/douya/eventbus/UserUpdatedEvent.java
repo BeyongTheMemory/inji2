@@ -5,13 +5,13 @@
 
 package me.zhanghai.android.douya.eventbus;
 
-import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 
 public class UserUpdatedEvent extends Event {
 
-    public User mUser;
+    public UserDTO mUser;
 
-    public UserUpdatedEvent(User user, Object source) {
+    public UserUpdatedEvent(UserDTO user, Object source) {
         super(source);
 
         this.mUser = user;

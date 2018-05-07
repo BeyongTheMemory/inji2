@@ -24,7 +24,7 @@ public class ApiV2BroadcastListResource
 
     private static final String KEY_PREFIX = ApiV2BroadcastListResource.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private static final String EXTRA_user_id = KEY_PREFIX + "user_id";
     private static final String EXTRA_TOPIC = KEY_PREFIX + "topic";
 
     private String mUserIdOrUid;
@@ -62,7 +62,7 @@ public class ApiV2BroadcastListResource
 
     protected ApiV2BroadcastListResource setArguments(String userIdOrUid, String topic) {
         Bundle arguments = FragmentUtils.ensureArguments(this);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
+        arguments.putString(EXTRA_user_id, userIdOrUid);
         arguments.putString(EXTRA_TOPIC, topic);
         return this;
     }
@@ -72,7 +72,7 @@ public class ApiV2BroadcastListResource
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
+        mUserIdOrUid = arguments.getString(EXTRA_user_id);
         mTopic = arguments.getString(EXTRA_TOPIC);
     }
 

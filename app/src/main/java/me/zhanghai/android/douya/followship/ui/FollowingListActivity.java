@@ -10,9 +10,9 @@ import android.content.Intent;
 
 public class FollowingListActivity extends FollowshipListActivity {
 
-    public static Intent makeIntent(String userIdOrUid, Context context) {
+    public static Intent makeIntent(Long userId, Context context) {
         return new Intent(context, FollowingListActivity.class)
-                .putExtra(EXTRA_USER_ID_OR_UID, userIdOrUid);
+                .putExtra(EXTRA_user_id, userId);
     }
 
     @Override

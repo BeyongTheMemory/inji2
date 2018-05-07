@@ -16,6 +16,7 @@ import me.zhanghai.android.douya.broadcast.content.TimelineBroadcastListResource
 import me.zhanghai.android.douya.diary.content.UserDiaryListResource;
 import me.zhanghai.android.douya.followship.content.FollowingListResource;
 import me.zhanghai.android.douya.network.api.ApiError;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
 import me.zhanghai.android.douya.network.api.info.frodo.Diary;
@@ -33,14 +34,12 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
 
     private static final String KEY_PREFIX = ProfileResource.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
-    private static final String EXTRA_SIMPLE_USER = KEY_PREFIX + "simple_user";
+    private static final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private static final String EXTRA_USER = KEY_PREFIX + "user";
 
-    private String mUserIdOrUid;
-    private me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser mSimpleUser;
+    private Long mUserId;
 
-    private User mUser;
+    private UserDTO mUser;
 
     private UserResource mUserResource;
     private TimelineBroadcastListResource mBroadcastListResource;
@@ -54,20 +53,18 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     private static final String FRAGMENT_TAG_DEFAULT = ProfileResource.class.getName();
 
     private static ProfileResource newInstance(
-            String userIdOrUid,
-            me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser simpleUser, User user) {
+            Long userId, UserDTO user) {
         //noinspection deprecation
-        return new ProfileResource().setArguments(userIdOrUid, simpleUser, user);
+        return new ProfileResource().setArguments(userId, user);
     }
 
     public static ProfileResource attachTo(
-            String userIdOrUid,
-            me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser simpleUser, User user,
+            Long userId, UserDTO user,
             Fragment fragment, String tag, int requestCode) {
         FragmentActivity activity = fragment.getActivity();
         ProfileResource instance = FragmentUtils.findByTag(activity, tag);
         if (instance == null) {
-            instance = newInstance(userIdOrUid, simpleUser, user);
+            instance = newInstance(userId, user);
             instance.targetAt(fragment, requestCode);
             FragmentUtils.add(instance, activity, tag);
         }
@@ -75,10 +72,10 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     }
 
     public static ProfileResource attachTo(
-            String userIdOrUid,
-            me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser simpleUser, User user,
+            Long userId,
+            UserDTO user,
             Fragment fragment) {
-        return attachTo(userIdOrUid, simpleUser, user, fragment, FRAGMENT_TAG_DEFAULT,
+        return attachTo(userId, user, fragment, FRAGMENT_TAG_DEFAULT,
                 REQUEST_CODE_INVALID);
     }
 
@@ -88,34 +85,21 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     public ProfileResource() {}
 
     protected ProfileResource setArguments(
-            String userIdOrUid,
-            me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser simpleUser, User user) {
+            Long userId,
+            UserDTO user) {
         Bundle arguments = FragmentUtils.ensureArguments(this);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
-        arguments.putParcelable(EXTRA_SIMPLE_USER, simpleUser);
+        arguments.putLong(EXTRA_USER_ID, userId);
         arguments.putParcelable(EXTRA_USER, user);
         return this;
     }
 
-    public String getUserIdOrUid() {
+    public Long getUserId() {
         // Can be called before onCreate() is called.
         ensureArguments();
-        return mUserIdOrUid;
+        return mUserId;
     }
 
-    public me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser getSimpleUser() {
-        // Can be called before onCreate() is called.
-        ensureArguments();
-        return mSimpleUser;
-    }
-
-    public boolean hasSimpleUser() {
-        // Can be called before onCreate() is called.
-        ensureArguments();
-        return mSimpleUser != null;
-    }
-
-    public User getUser() {
+    public UserDTO getUser() {
         // Can be called before onCreate() is called.
         ensureArguments();
         return mUser;
@@ -133,26 +117,18 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
 
         ensureArguments();
 
-        mUserResource = UserResource.attachTo(mUserIdOrUid, mSimpleUser, mUser, this);
-        ensureResourcesIfHasSimpleUser();
+        mUserResource = UserResource.attachTo(mUserId, mUser, this);
+      //  ensureResourcesIfHasSimpleUser();
     }
 
     private void ensureArguments() {
-        if (mUserIdOrUid != null) {
+        if (mUserId != null) {
             return;
         }
         Bundle arguments = getArguments();
         mUser = arguments.getParcelable(EXTRA_USER);
         if (mUser != null) {
-            mSimpleUser = mUser;
-            mUserIdOrUid = mUser.getIdOrUid();
-        } else {
-            mSimpleUser = arguments.getParcelable(EXTRA_SIMPLE_USER);
-            if (mSimpleUser != null) {
-                mUserIdOrUid = mSimpleUser.getIdOrUid();
-            } else {
-                mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
-            }
+            mUserId = mUser.getId();
         }
     }
 
@@ -178,8 +154,7 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
         }
 
         Bundle arguments = getArguments();
-        arguments.putString(EXTRA_USER_ID_OR_UID, mUserIdOrUid);
-        arguments.putParcelable(EXTRA_SIMPLE_USER, mSimpleUser);
+        arguments.putLong(EXTRA_USER_ID, mUserId);
         arguments.putParcelable(EXTRA_USER, mUser);
     }
 
@@ -195,13 +170,12 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     }
 
     @Override
-    public void onUserChanged(int requestCode, User newUser) {
+    public void onUserChanged(int requestCode, UserDTO newUser) {
         mUser = newUser;
-        mSimpleUser = newUser;
-        mUserIdOrUid = newUser.getIdOrUid();
+        mUserId = newUser.getId();
         getListener().onUserChanged(getRequestCode(), newUser);
         notifyChangedIfLoaded();
-        ensureResourcesIfHasSimpleUser();
+        //ensureResourcesIfHasSimpleUser();
     }
 
     @Override
@@ -212,22 +186,6 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     @Override
     public void onUserWriteFinished(int requestCode) {
         getListener().onUserWriteFinished(getRequestCode());
-    }
-
-    private void ensureResourcesIfHasSimpleUser() {
-        if (mBroadcastListResource != null || mFollowingListResource != null
-                || mDiaryListResource != null || mUserItemListResource != null
-                || mReviewListResource != null) {
-            return;
-        }
-        if (mSimpleUser == null) {
-            return;
-        }
-        mBroadcastListResource = TimelineBroadcastListResource.attachTo(mSimpleUser.getIdOrUid(), null, this);
-        mFollowingListResource = FollowingListResource.attachTo(mSimpleUser.getIdOrUid(), this);
-        mDiaryListResource = UserDiaryListResource.attachTo(mSimpleUser.getIdOrUid(), this);
-        mUserItemListResource = UserItemListResource.attachTo(mSimpleUser.getIdOrUid(), this);
-        mReviewListResource = UserReviewListResource.attachTo(mSimpleUser.getIdOrUid(), this);
     }
 
     @Override
@@ -376,10 +334,11 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
     }
 
     public void notifyChangedIfLoaded() {
+        //todo：载入跟随用户列表
         getListener().onChanged(getRequestCode(),
                 getUser(),
                 mBroadcastListResource != null ? mBroadcastListResource.get() : null,
-                mFollowingListResource != null ? mFollowingListResource.get() : null,
+               null,
                 mDiaryListResource != null ? mDiaryListResource.get() : null,
                 mUserItemListResource != null ? mUserItemListResource.get() : null,
                 mReviewListResource != null ? mReviewListResource.get() : null);
@@ -398,11 +357,11 @@ public class ProfileResource extends TargetedRetainedFragment implements UserRes
 
     public interface Listener {
         void onLoadError(int requestCode, ApiError error);
-        void onUserChanged(int requestCode, User newUser);
+        void onUserChanged(int requestCode, UserDTO newUser);
         void onUserWriteStarted(int requestCode);
         void onUserWriteFinished(int requestCode);
-        void onChanged(int requestCode, User newUser, List<Broadcast> newBroadcastList,
-                       List<SimpleUser> newFollowingList, List<Diary> newDiaryList,
+        void onChanged(int requestCode, UserDTO newUser, List<Broadcast> newBroadcastList,
+                       List<UserDTO> newFollowingList, List<Diary> newDiaryList,
                        List<UserItems> newUserItemList, List<SimpleReview> newReviewList);
     }
 }

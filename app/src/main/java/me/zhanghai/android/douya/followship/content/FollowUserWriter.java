@@ -84,13 +84,13 @@ class FollowUserWriter extends RequestResourceWriter<FollowUserWriter, User> {
 
     @Override
     public void onResponse(User response) {
-
+        //todo：取消关注
         ToastUtils.show(mFollow ? R.string.user_follow_successful
                 : R.string.user_unfollow_successful, getContext());
 
-        EventBusUtils.postAsync(new UserUpdatedEvent(response, this));
-
-        stopSelf();
+//        EventBusUtils.postAsync(new UserUpdatedEvent(response, this));
+//
+//        stopSelf();
     }
 
     @Override
@@ -114,7 +114,8 @@ class FollowUserWriter extends RequestResourceWriter<FollowUserWriter, User> {
             }
             if (shouldBeFollowed != null) {
                 mUser.fixFollowed(shouldBeFollowed);
-                EventBusUtils.postAsync(new UserUpdatedEvent(mUser, this));
+                //todo：取消关注
+               // EventBusUtils.postAsync(new UserUpdatedEvent(mUser, this));
                 notified = true;
             }
         }
@@ -134,9 +135,10 @@ class FollowUserWriter extends RequestResourceWriter<FollowUserWriter, User> {
         }
 
         //noinspection deprecation
-        if (event.mUser.isIdOrUid(mUserIdOrUid)) {
-            mUserIdOrUid = event.mUser.getIdOrUid();
-            mUser = event.mUser;
-        }
+        //todo：取消关注
+//        if (event.mUser.isIdOrUid(mUserIdOrUid)) {
+//            mUserIdOrUid = event.mUser.getIdOrUid();
+//            mUser = event.mUser;
+//        }
     }
 }

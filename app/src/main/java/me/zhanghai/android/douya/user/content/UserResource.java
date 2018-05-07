@@ -22,43 +22,43 @@ import me.zhanghai.android.douya.network.api.ApiRequest;
 import me.zhanghai.android.douya.network.api.ApiService;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.util.FragmentUtils;
 
-public class UserResource extends ResourceFragment<User, User> {
+public class UserResource extends ResourceFragment<UserDTO, UserDTO> {
 
     // Not static because we are to be subclassed.
     private final String KEY_PREFIX = getClass().getName() + '.';
 
-    private final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
-    private final String EXTRA_SIMPLE_USER = KEY_PREFIX + "simple_user";
+    private final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private final String EXTRA_USER = KEY_PREFIX + "user";
 
-    private String mUserIdOrUid;
-    private SimpleUser mSimpleUser;
-    private User mExtraUser;
+    private Long mUserId;
+    //private SimpleUser mSimpleUser;
+    private UserDTO mExtraUser;
 
     private static final String FRAGMENT_TAG_DEFAULT = UserResource.class.getName();
 
-    private static UserResource newInstance(String userIdOrUid, SimpleUser simpleUser, User user) {
+    private static UserResource newInstance(Long userId, UserDTO user) {
         //noinspection deprecation
-        return new UserResource().setArguments(userIdOrUid, simpleUser, user);
+        return new UserResource().setArguments(userId, user);
     }
 
-    public static UserResource attachTo(String userIdOrUid, SimpleUser simpleUser, User user,
+    public static UserResource attachTo(Long userId, UserDTO user,
                                         Fragment fragment, String tag, int requestCode) {
         FragmentActivity activity = fragment.getActivity();
         UserResource instance = FragmentUtils.findByTag(activity, tag);
         if (instance == null) {
-            instance = newInstance(userIdOrUid, simpleUser, user);
+            instance = newInstance(userId, user);
             instance.targetAt(fragment, requestCode);
             FragmentUtils.add(instance, activity, tag);
         }
         return instance;
     }
 
-    public static UserResource attachTo(String userIdOrUid, SimpleUser simpleUser, User user,
+    public static UserResource attachTo(Long userId, UserDTO user,
                                         Fragment fragment) {
-        return attachTo(userIdOrUid, simpleUser, user, fragment, FRAGMENT_TAG_DEFAULT,
+        return attachTo(userId, user, fragment, FRAGMENT_TAG_DEFAULT,
                 REQUEST_CODE_INVALID);
     }
 
@@ -67,32 +67,22 @@ public class UserResource extends ResourceFragment<User, User> {
      */
     public UserResource() {}
 
-    protected UserResource setArguments(String userIdOrUid, SimpleUser simpleUser, User user) {
+    protected UserResource setArguments(Long userId, UserDTO user) {
         Bundle arguments = FragmentUtils.ensureArguments(this);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
-        arguments.putParcelable(EXTRA_SIMPLE_USER, simpleUser);
+        arguments.putLong(EXTRA_USER_ID, userId);
         arguments.putParcelable(EXTRA_USER, user);
         return this;
     }
 
-    public String getUserIdOrUid() {
+    public Long getUserId() {
         ensureArguments();
-        return mUserIdOrUid;
+        return mUserId;
     }
 
-    public SimpleUser getSimpleUser() {
-        // Can be called before onCreate() is called.
-        ensureArguments();
-        return mSimpleUser;
-    }
-
-    public boolean hasSimpleUser() {
-        return getSimpleUser() != null;
-    }
 
     @Override
-    public User get() {
-        User user = super.get();
+    public UserDTO get() {
+        UserDTO user = super.get();
         if (user == null) {
             // Can be called before onCreate() is called.
             ensureArguments();
@@ -102,13 +92,12 @@ public class UserResource extends ResourceFragment<User, User> {
     }
 
     @Override
-    protected void set(User user) {
+    protected void set(UserDTO user) {
         super.set(user);
 
         user = get();
         if (user != null) {
-            mSimpleUser = user;
-            mUserIdOrUid = user.getIdOrUid();
+            mUserId = user.getId();
         }
     }
 
@@ -120,21 +109,13 @@ public class UserResource extends ResourceFragment<User, User> {
     }
 
     private void ensureArguments() {
-        if (mUserIdOrUid != null) {
+        if (mUserId != null) {
             return;
         }
         Bundle arguments = getArguments();
         mExtraUser = arguments.getParcelable(EXTRA_USER);
         if (mExtraUser != null) {
-            mSimpleUser = mExtraUser;
-            mUserIdOrUid = mExtraUser.getIdOrUid();
-        } else {
-            mSimpleUser = arguments.getParcelable(EXTRA_SIMPLE_USER);
-            if (mSimpleUser != null) {
-                mUserIdOrUid = mSimpleUser.getIdOrUid();
-            } else {
-                mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
-            }
+            mUserId = mExtraUser.getId();
         }
     }
 
@@ -143,14 +124,17 @@ public class UserResource extends ResourceFragment<User, User> {
         super.onDestroy();
 
         if (has()) {
-            User user = get();
-            setArguments(user.getIdOrUid(), user, user);
+            UserDTO user = get();
+            setArguments(user.getId(), user);
         }
     }
 
     @Override
-    protected ApiRequest<User> onCreateRequest() {
-        return ApiService.getInstance().getUser(mUserIdOrUid);
+    protected ApiRequest<UserDTO> onCreateRequest() {
+        /**
+         * todo：这里查询不到信息，修改
+         */
+        return ApiService.getInstance().getUser(mUserId+"");
     }
 
     @Override
@@ -159,7 +143,7 @@ public class UserResource extends ResourceFragment<User, User> {
     }
 
     @Override
-    protected void onLoadFinished(boolean successful, User response, ApiError error) {
+    protected void onLoadFinished(boolean successful, UserDTO response, ApiError error) {
         if (successful) {
             set(response);
             onLoadSuccess(response);
@@ -172,7 +156,7 @@ public class UserResource extends ResourceFragment<User, User> {
         }
     }
 
-    protected void onLoadSuccess(User user) {}
+    protected void onLoadSuccess(UserDTO user) {}
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onUserUpdated(UserUpdatedEvent event) {
@@ -180,11 +164,14 @@ public class UserResource extends ResourceFragment<User, User> {
         if (event.isFromMyself(this)) {
             return;
         }
+        /**
+         * todo:更新用户信息
+         */
 
-        if (event.mUser.isIdOrUid(mUserIdOrUid)) {
-            set(event.mUser);
-            getListener().onUserChanged(getRequestCode(), get());
-        }
+//        if (event.mUser.isIdOrUid(mUserId)) {
+//            set(event.mUser);
+//            getListener().onUserChanged(getRequestCode(), get());
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
@@ -195,7 +182,7 @@ public class UserResource extends ResourceFragment<User, User> {
         }
 
         // Only call listener when we have the data.
-        if (mExtraUser != null && mExtraUser.isIdOrUid(event.userIdOrUid)) {
+        if (mExtraUser != null) {
             getListener().onUserWriteStarted(getRequestCode());
         }
     }
@@ -208,7 +195,7 @@ public class UserResource extends ResourceFragment<User, User> {
         }
 
         // Only call listener when we have the data.
-        if (mExtraUser != null && mExtraUser.isIdOrUid(event.userIdOrUid)) {
+        if (mExtraUser != null) {
             getListener().onUserWriteFinished(getRequestCode());
         }
     }
@@ -221,7 +208,7 @@ public class UserResource extends ResourceFragment<User, User> {
         void onLoadUserStarted(int requestCode);
         void onLoadUserFinished(int requestCode);
         void onLoadUserError(int requestCode, ApiError error);
-        void onUserChanged(int requestCode, User newUser);
+        void onUserChanged(int requestCode, UserDTO newUser);
         void onUserWriteStarted(int requestCode);
         void onUserWriteFinished(int requestCode);
     }

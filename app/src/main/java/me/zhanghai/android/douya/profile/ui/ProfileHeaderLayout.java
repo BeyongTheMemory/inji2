@@ -26,10 +26,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.zhanghai.android.douya.R;
+import me.zhanghai.android.douya.account.util.AccountUtils;
 import me.zhanghai.android.douya.followship.content.FollowUserManager;
 import me.zhanghai.android.douya.gallery.ui.GalleryActivity;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.profile.util.ProfileUtils;
 import me.zhanghai.android.douya.ui.FlexibleSpaceHeaderView;
 import me.zhanghai.android.douya.ui.JoinedAtLocationAutoGoneTextView;
@@ -304,11 +306,11 @@ public class ProfileHeaderLayout extends FrameLayout implements FlexibleSpaceHea
         mFollowButton.setVisibility(GONE);
     }
 
-    public void bindUser(final User user) {
+    public void bindUser(final UserDTO user) {
         final Context context = getContext();
         if (!ViewUtils.isVisible(mAvatarImage)) {
             // HACK: Don't load avatar again if already loaded by bindSimpleUser().
-            final String largeAvatar = user.getLargeAvatarOrAvatar();
+            final String largeAvatar = user.getHeadUrl();
             ImageUtils.loadProfileAvatarAndFadeIn(mAvatarImage, largeAvatar);
             mAvatarImage.setOnClickListener(new OnClickListener() {
                 @Override
@@ -317,11 +319,13 @@ public class ProfileHeaderLayout extends FrameLayout implements FlexibleSpaceHea
                 }
             });
         }
-        mToolbarUsernameText.setText(user.name);
-        mUsernameText.setText(user.name);
-        mSignatureText.setText(user.signature);
-        mJoinedAtLocationText.setJoinedAtAndLocation(user.createdAt, user.locationName);
-        if (user.isOneself()) {
+        mToolbarUsernameText.setText(user.getName());
+        mUsernameText.setText(user.getName());
+        mSignatureText.setText(user.getIntroduction());
+        //todo：注册时间和地点
+       // mJoinedAtLocationText.setJoinedAtAndLocation(user.createdAt, user.locationName);
+
+        if (user.getId() == AccountUtils.getUserId()) {
             TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(mFollowButton,
                     R.drawable.edit_icon_white_24dp, 0, 0, 0);
             mFollowButton.setText(R.string.profile_edit);
@@ -334,46 +338,47 @@ public class ProfileHeaderLayout extends FrameLayout implements FlexibleSpaceHea
                 }
             });
         } else {
-            FollowUserManager followUserManager = FollowUserManager.getInstance();
-            String userIdOrUid = user.getIdOrUid();
-            if (followUserManager.isWriting(userIdOrUid)) {
-                TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(mFollowButton,
-                        new WhiteIndeterminateProgressIconDrawable(context), null, null, null);
-                mFollowButton.setText(followUserManager.isWritingFollow(userIdOrUid) ?
-                        R.string.user_following : R.string.user_unfollowing);
-            } else {
-                int followDrawableId;
-                int followStringId;
-                if (user.isFollowed) {
-                    if (user.isFollower) {
-                        followDrawableId = R.drawable.mutual_icon_white_24dp;
-                        followStringId = R.string.profile_following_mutual;
-                    } else {
-                        followDrawableId = R.drawable.ok_icon_white_24dp;
-                        followStringId = R.string.profile_following;
-                    }
-                } else {
-                    followDrawableId = R.drawable.add_icon_white_24dp;
-                    followStringId = R.string.profile_follow;
-                }
-                TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(mFollowButton,
-                        followDrawableId, 0, 0, 0);
-                mFollowButton.setText(followStringId);
-            }
-            mFollowButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener != null) {
-                        mListener.onFollowUser(user, !user.isFollowed);
-                    }
-                }
-            });
+            //todo：关注用户逻辑
+//            FollowUserManager followUserManager = FollowUserManager.getInstance();
+//            Long userIdOrUid = user.getIdOrUid();
+//            if (followUserManager.isWriting(userIdOrUid)) {
+//                TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(mFollowButton,
+//                        new WhiteIndeterminateProgressIconDrawable(context), null, null, null);
+//                mFollowButton.setText(followUserManager.isWritingFollow(userIdOrUid) ?
+//                        R.string.user_following : R.string.user_unfollowing);
+//            } else {
+//                int followDrawableId;
+//                int followStringId;
+//                if (user.isFollowed) {
+//                    if (user.isFollower) {
+//                        followDrawableId = R.drawable.mutual_icon_white_24dp;
+//                        followStringId = R.string.profile_following_mutual;
+//                    } else {
+//                        followDrawableId = R.drawable.ok_icon_white_24dp;
+//                        followStringId = R.string.profile_following;
+//                    }
+//                } else {
+//                    followDrawableId = R.drawable.add_icon_white_24dp;
+//                    followStringId = R.string.profile_follow;
+//                }
+//                TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(mFollowButton,
+//                        followDrawableId, 0, 0, 0);
+//                mFollowButton.setText(followStringId);
+//            }
+//            mFollowButton.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (mListener != null) {
+//                        mListener.onFollowUser(user, !user.isFollowed);
+//                    }
+//                }
+//            });
         }
         mFollowButton.setVisibility(VISIBLE);
     }
 
     public interface Listener {
-        void onEditProfile(User user);
-        void onFollowUser(User user, boolean follow);
+        void onEditProfile(UserDTO user);
+        void onFollowUser(UserDTO user, boolean follow);
     }
 }

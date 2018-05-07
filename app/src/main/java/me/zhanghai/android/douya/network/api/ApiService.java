@@ -20,6 +20,7 @@ import me.zhanghai.android.douya.network.Http;
 import me.zhanghai.android.douya.network.api.credential.ApiCredential;
 import me.zhanghai.android.douya.network.api.info.AuthenticationResponse;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.frodo.BroadcastLikerList;
 import me.zhanghai.android.douya.network.api.info.frodo.BroadcastList;
@@ -52,6 +53,7 @@ import me.zhanghai.android.douya.util.IpUtil;
 import me.zhanghai.android.douya.util.StringCompat;
 import me.zhanghai.android.douya.util.StringUtils;
 import me.zhanghai.android.douya.util.UriUtils;
+import me.zhanghai.android.douya.util.UrlUtil;
 import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -72,6 +74,7 @@ import retrofit2.http.Url;
 public class ApiService {
 
     private static final ApiService sInstance = new ApiService();
+
 
     private AuthenticationService mAuthenticationService;
     private OkHttpClient mLifeStreamHttpClient;
@@ -100,7 +103,7 @@ public class ApiService {
                 .addCallAdapterFactory(ApiCallAdapter.Factory.create())
                 .addConverterFactory(GsonResponseBodyConverterFactory.create())
                 // Make Retrofit happy.
-                .baseUrl("https://www.douban.com")
+                .baseUrl(UrlUtil.BASE_URL)
                 .client(new OkHttpClient.Builder()
                         .addNetworkInterceptor(new StethoInterceptor())
                         .build())
@@ -149,7 +152,7 @@ public class ApiService {
         return mFrodoService.getNotificationList(start, count);
     }
 
-    public ApiRequest<User> getUser(String userIdOrUid) {
+    public ApiRequest<UserDTO> getUser(String userIdOrUid) {
         if (TextUtils.isEmpty(userIdOrUid)) {
             userIdOrUid = "~me";
         }
@@ -387,8 +390,8 @@ public class ApiService {
 
     public interface LifeStreamService {
 
-        @GET("lifestream/user/{userIdOrUid}")
-        ApiRequest<User> getUser(@Path("userIdOrUid") String userIdOrUid);
+        @GET("user/getUserByAccount")
+        ApiRequest<UserDTO> getUser(@Path("account") String account);
 
         @POST("lifestream/user/{userIdOrUid}/follow")
         ApiRequest<User> follow(@Path("userIdOrUid") String userIdOrUid);

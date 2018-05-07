@@ -11,15 +11,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import me.zhanghai.android.douya.network.Http;
+import me.zhanghai.android.douya.util.UrlUtil;
 
 public interface ApiContract {
-    String baseUrl = "http://106.14.77.185:80/";
+
 
     interface Request {
 
         interface Authentication {
 
-            String URL = baseUrl + "pop-control/user/login";
+            String URL = UrlUtil.BASE_URL + "pop-control/user/login";
 
             String ACCEPT_CHARSET = Http.Charsets.UTF8;
             interface RedirectUris {

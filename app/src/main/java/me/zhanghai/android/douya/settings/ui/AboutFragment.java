@@ -93,8 +93,8 @@ public class AboutFragment extends Fragment implements ConfirmEnableScalpelDialo
         mDoubanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Activity activity = getActivity();
-                activity.startActivity(ProfileActivity.makeIntent("douban-douya", activity));
+//                Activity activity = getActivity();
+//                activity.startActivity(ProfileActivity.makeIntent("douban-douya", activity));
             }
         });
     }

@@ -34,36 +34,36 @@ public class TimelineBroadcastListResource
     // Not static because we are to be subclassed.
     private final String KEY_PREFIX = getClass().getName() + '.';
 
-    private final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private final String EXTRA_TOPIC = KEY_PREFIX + "topic";
 
-    private String mUserIdOrUid;
+    private String mUserId;
     private String mTopic;
 
     private static final String FRAGMENT_TAG_DEFAULT =
             TimelineBroadcastListResource.class.getName();
 
-    private static TimelineBroadcastListResource newInstance(String userIdOrUid, String topic) {
+    private static TimelineBroadcastListResource newInstance(Long userId, String topic) {
         //noinspection deprecation
-        return new TimelineBroadcastListResource().setArguments(userIdOrUid, topic);
+        return new TimelineBroadcastListResource().setArguments(userId, topic);
     }
 
-    public static TimelineBroadcastListResource attachTo(String userIdOrUid, String topic,
+    public static TimelineBroadcastListResource attachTo(Long userId, String topic,
                                                          Fragment fragment, String tag,
                                                          int requestCode) {
         FragmentActivity activity = fragment.getActivity();
         TimelineBroadcastListResource instance = FragmentUtils.findByTag(activity, tag);
         if (instance == null) {
-            instance = newInstance(userIdOrUid, topic);
+            instance = newInstance(userId, topic);
             instance.targetAt(fragment, requestCode);
             FragmentUtils.add(instance, activity, tag);
         }
         return instance;
     }
 
-    public static TimelineBroadcastListResource attachTo(String userIdOrUid, String topic,
+    public static TimelineBroadcastListResource attachTo(Long userId, String topic,
                                                          Fragment fragment) {
-        return attachTo(userIdOrUid, topic, fragment, FRAGMENT_TAG_DEFAULT, REQUEST_CODE_INVALID);
+        return attachTo(userId, topic, fragment, FRAGMENT_TAG_DEFAULT, REQUEST_CODE_INVALID);
     }
 
     /**
@@ -71,9 +71,9 @@ public class TimelineBroadcastListResource
      */
     public TimelineBroadcastListResource() {}
 
-    protected TimelineBroadcastListResource setArguments(String userIdOrUid, String topic) {
+    protected TimelineBroadcastListResource setArguments(Long userId, String topic) {
         Bundle arguments = FragmentUtils.ensureArguments(this);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
+        arguments.putLong(EXTRA_USER_ID, userId);
         arguments.putString(EXTRA_TOPIC, topic);
         return this;
     }
@@ -83,7 +83,7 @@ public class TimelineBroadcastListResource
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
+        mUserId = arguments.getString(EXTRA_USER_ID);
         mTopic = arguments.getString(EXTRA_TOPIC);
     }
 
@@ -97,7 +97,7 @@ public class TimelineBroadcastListResource
                 untilId = broadcastList.get(size - 1).id;
             }
         }
-        return ApiService.getInstance().getTimelineList(mUserIdOrUid, mTopic, untilId, count);
+        return ApiService.getInstance().getTimelineList(mUserId, mTopic, untilId, count);
     }
 
     @Override

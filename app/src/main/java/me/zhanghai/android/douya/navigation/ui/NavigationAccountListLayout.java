@@ -30,6 +30,7 @@ import me.zhanghai.android.douya.account.info.AccountContract;
 import me.zhanghai.android.douya.account.util.AccountUtils;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.util.AppUtils;
 import me.zhanghai.android.douya.util.ImageUtils;
 import me.zhanghai.android.douya.util.IntentUtils;
@@ -147,14 +148,14 @@ public class NavigationAccountListLayout extends LinearLayout {
                 accountLayout.setTag(holder);
             }
 
-            User user = mAdapter.getUser(account);
+            UserDTO user = mAdapter.getUser(account);
             if (user != null) {
                 ImageUtils.loadNavigationAccountListAvatar(holder.avatarImage,
-                        user.getLargeAvatarOrAvatar());
+                        user.getHeadUrl());
             } else {
                 holder.avatarImage.setImageResource(R.drawable.avatar_icon_40dp);
             }
-            holder.nameText.setText(mAdapter.getPartialUser(account).name);
+            holder.nameText.setText(mAdapter.getUser(account).getName());
             accountLayout.setOnClickListener(view -> {
                 if (mListener != null) {
                     mListener.switchToAccount(account);
@@ -184,8 +185,7 @@ public class NavigationAccountListLayout extends LinearLayout {
     }
 
     public interface Adapter {
-        SimpleUser getPartialUser(Account account);
-        User getUser(Account account);
+        UserDTO getUser(Account account);
     }
 
     public interface Listener {

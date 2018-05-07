@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.broadcast.ui.BroadcastActivity;
 import me.zhanghai.android.douya.broadcast.ui.BroadcastListActivity;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.Broadcast;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
 import me.zhanghai.android.douya.ui.FriendlyCardView;
@@ -64,7 +65,7 @@ public class ProfileBroadcastsLayout extends FriendlyCardView {
         ButterKnife.bind(this);
     }
 
-    public void bind(User user, List<Broadcast> broadcastList) {
+    public void bind(UserDTO user, List<Broadcast> broadcastList) {
 
         Context context = getContext();
         View.OnClickListener viewMoreListener = view -> context.startActivity(
@@ -133,12 +134,15 @@ public class ProfileBroadcastsLayout extends FriendlyCardView {
         ViewUtils.setVisibleOrGone(mBroadcastList, i != 0);
         ViewUtils.setVisibleOrGone(mEmptyView, i == 0);
 
-        if (user.broadcastCount > i) {
-            mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
-                    user.broadcastCount));
-        } else {
-            mViewMoreText.setVisibility(GONE);
-        }
+        //todo:个人广播数目
+        mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
+               10));
+//        if (user.broadcastCount > i) {
+//            mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
+//                    user.broadcastCount));
+//        } else {
+//            mViewMoreText.setVisibility(GONE);
+//        }
 
         for (int count = mBroadcastList.getChildCount(); i < count; ++i) {
             mBroadcastList.getChildAt(i).setVisibility(GONE);

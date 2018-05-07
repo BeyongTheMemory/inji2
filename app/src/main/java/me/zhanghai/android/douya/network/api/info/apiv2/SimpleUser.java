@@ -73,7 +73,7 @@ public class SimpleUser implements UrlGettable, Parcelable {
     /**
      * @deprecated Use {@link #getIdOrUid()} instead.
      */
-    public String uid;
+    public Long uid;
 
     public String getLargeAvatarOrAvatar() {
         //noinspection deprecation
@@ -89,15 +89,16 @@ public class SimpleUser implements UrlGettable, Parcelable {
 
     public boolean isIdOrUid(String idOrUid) {
         //noinspection deprecation
-        return TextUtils.equals(String.valueOf(id), idOrUid) || TextUtils.equals(uid, idOrUid);
+        //return TextUtils.equals(String.valueOf(id), idOrUid) || TextUtils.equals(uid, idOrUid);
+        return true;
     }
 
     /**
      * @deprecated Normally you should use {@link #getIdOrUid()} for API.
      */
-    public String getUidOrId() {
+    public Long getUidOrId() {
         //noinspection deprecation
-        return !TextUtils.isEmpty(uid) ? uid : String.valueOf(id);
+        return uid;
     }
 
     public boolean isOneself() {
@@ -125,7 +126,7 @@ public class SimpleUser implements UrlGettable, Parcelable {
         simpleUser.id = frodoSimpleUser.id;
         simpleUser.name = frodoSimpleUser.name;
         simpleUser.type = frodoSimpleUser.type;
-        simpleUser.uid = frodoSimpleUser.uid;
+      //  simpleUser.uid = frodoSimpleUser.uid;
         return simpleUser;
     }
 
@@ -137,7 +138,7 @@ public class SimpleUser implements UrlGettable, Parcelable {
         simpleUser.id = id;
         simpleUser.type = type;
         simpleUser.name = name;
-        simpleUser.uid = uid;
+      //  simpleUser.uid = uid;
         simpleUser.uri = DoubanUtils.makeUserUri(id);
         simpleUser.url = alt;
         return simpleUser;
@@ -167,7 +168,7 @@ public class SimpleUser implements UrlGettable, Parcelable {
         //noinspection deprecation
         type = in.readString();
         //noinspection deprecation
-        uid = in.readString();
+        //uid = in.readString();
     }
 
     @Override
@@ -188,6 +189,6 @@ public class SimpleUser implements UrlGettable, Parcelable {
         //noinspection deprecation
         dest.writeString(type);
         //noinspection deprecation
-        dest.writeString(uid);
+        //dest.writeString(uid);
     }
 }

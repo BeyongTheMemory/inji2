@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.util.FragmentUtils;
 import me.zhanghai.android.douya.util.TransitionUtils;
 
@@ -18,16 +19,16 @@ public class BroadcastListActivity extends AppCompatActivity {
 
     private static final String KEY_PREFIX = BroadcastListActivity.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private static final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private static final String EXTRA_USER = KEY_PREFIX + "user";
     private static final String EXTRA_TOPIC = KEY_PREFIX + "topic";
 
-    public static Intent makeIntent(String userIdOrUid, Context context) {
+    public static Intent makeIntent(Long userId, Context context) {
         return new Intent(context, BroadcastListActivity.class)
-                .putExtra(EXTRA_USER_ID_OR_UID, userIdOrUid);
+                .putExtra(EXTRA_USER_ID, userId);
     }
 
-    public static Intent makeIntent(SimpleUser user, Context context) {
+    public static Intent makeIntent(UserDTO user, Context context) {
         return new Intent(context, BroadcastListActivity.class)
                 .putExtra(EXTRA_USER, user);
     }
@@ -51,10 +52,10 @@ public class BroadcastListActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            String userIdOrUid = intent.getStringExtra(EXTRA_USER_ID_OR_UID);
-            SimpleUser user = intent.getParcelableExtra(EXTRA_USER);
+            Long userId = intent.getLongExtra(EXTRA_USER_ID,-1);
+            UserDTO user = intent.getParcelableExtra(EXTRA_USER);
             String topic = intent.getStringExtra(EXTRA_TOPIC);
-            FragmentUtils.add(BroadcastListActivityFragment.newInstance(userIdOrUid, user, topic),
+            FragmentUtils.add(BroadcastListActivityFragment.newInstance(userId, user, topic),
                     this, android.R.id.content);
         }
     }

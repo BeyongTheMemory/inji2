@@ -25,7 +25,7 @@ public class NotImplementedManager {
         UrlHandler.open("https://www.douban.com/doumail/", context);
     }
 
-    public static void sendDoumail(String userIdOrUid, Context context) {
+    public static void sendDoumail(Long userIdOrUid, Context context) {
         UrlHandler.open("https://www.douban.com/doumail/write?to=" + userIdOrUid, context);
     }
 

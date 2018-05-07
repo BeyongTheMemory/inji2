@@ -20,6 +20,7 @@ import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.followship.ui.FollowerListActivity;
 import me.zhanghai.android.douya.followship.ui.FollowingListActivity;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.network.api.info.frodo.SimpleUser;
 import me.zhanghai.android.douya.ui.FriendlyCardView;
 import me.zhanghai.android.douya.util.ImageUtils;
@@ -63,13 +64,13 @@ public class ProfileFollowshipLayout extends FriendlyCardView {
         ButterKnife.bind(this);
     }
 
-    public void bind(final User userInfo, List<SimpleUser> followingList) {
+    public void bind(final UserDTO userInfo, List<UserDTO> followingList) {
 
         final Context context = getContext();
         OnClickListener viewFollowingListListener = new OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(FollowingListActivity.makeIntent(userInfo.getIdOrUid(),
+                context.startActivity(FollowingListActivity.makeIntent(userInfo.getId(),
                         context));
             }
         };
@@ -77,7 +78,7 @@ public class ProfileFollowshipLayout extends FriendlyCardView {
         mViewMoreText.setOnClickListener(viewFollowingListListener);
 
         int i = 0;
-        for (final SimpleUser user : followingList) {
+        for (final UserDTO user : followingList) {
 
             if (i >= USER_COUNT_MAX) {
                 break;
@@ -93,8 +94,8 @@ public class ProfileFollowshipLayout extends FriendlyCardView {
                 userLayout.setTag(holder);
             }
 
-            ImageUtils.loadAvatar(holder.avatarImage, user.avatar);
-            holder.nameText.setText(user.name);
+            ImageUtils.loadAvatar(holder.avatarImage, user.getHeadUrl());
+            holder.nameText.setText(user.getName());
             userLayout.setOnClickListener(view -> context.startActivity(ProfileActivity.makeIntent(
                     user, context)));
 
@@ -104,30 +105,35 @@ public class ProfileFollowshipLayout extends FriendlyCardView {
         ViewUtils.setVisibleOrGone(mFollowingList, i != 0);
         ViewUtils.setVisibleOrGone(mEmptyView, i == 0);
 
-        if (userInfo.followingCount > i) {
-            mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
-                    userInfo.followingCount));
-        } else {
-            mViewMoreText.setVisibility(GONE);
-        }
+        //todo:用户关注
+        mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
+               10));
+//        if (userInfo.followingCount > i) {
+//            mViewMoreText.setText(context.getString(R.string.view_more_with_count_format,
+//                    userInfo.followingCount));
+//        } else {
+//            mViewMoreText.setVisibility(GONE);
+//        }
 
         for (int count = mFollowingList.getChildCount(); i < count; ++i) {
             ViewUtils.setVisibleOrGone(mFollowingList.getChildAt(i), false);
         }
 
-        if (userInfo.followerCount > 0) {
-            mFollwerText.setText(context.getString(R.string.profile_follower_count_format,
-                    userInfo.followerCount));
-            mFollwerText.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    context.startActivity(FollowerListActivity.makeIntent(userInfo.getIdOrUid(),
-                            context));
-                }
-            });
-        } else {
-            mFollwerText.setVisibility(GONE);
-        }
+        //todo:用户关注
+        mFollwerText.setVisibility(GONE);
+//        if (userInfo.followerCount > 0) {
+//            mFollwerText.setText(context.getString(R.string.profile_follower_count_format,
+//                    userInfo.followerCount));
+//            mFollwerText.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    context.startActivity(FollowerListActivity.makeIntent(userInfo.getIdOrUid(),
+//                            context));
+//                }
+//            });
+//        } else {
+//            mFollwerText.setVisibility(GONE);
+//        }
     }
 
     static class UserLayoutHolder {

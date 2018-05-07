@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.ui.AppBarHost;
 import me.zhanghai.android.douya.ui.AppBarWrapperLayout;
 import me.zhanghai.android.douya.ui.DoubleClickToolbar;
@@ -34,7 +35,7 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
 
     private static final String KEY_PREFIX = BroadcastListActivityFragment.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private static final String EXTRA_USER_ID = KEY_PREFIX + "user_id";
     private static final String EXTRA_USER = KEY_PREFIX + "user";
     private static final String EXTRA_TOPIC = KEY_PREFIX + "topic";
 
@@ -43,24 +44,22 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
     @BindView(R.id.toolbar)
     DoubleClickToolbar mToolbar;
 
-    private String mUserIdOrUid;
-    private SimpleUser mUser;
+    private Long mUserId;
+    private UserDTO mUser;
     private String mTopic;
 
-    public static BroadcastListActivityFragment newInstance(String userIdOrUid, SimpleUser user,
+    public static BroadcastListActivityFragment newInstance(Long userId, UserDTO user,
                                                             String topic) {
         //noinspection deprecation
         BroadcastListActivityFragment fragment = new BroadcastListActivityFragment();
         Bundle arguments = FragmentUtils.ensureArguments(fragment);
-        arguments.putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
+        arguments.putLong(EXTRA_USER_ID, userId);
         arguments.putParcelable(EXTRA_USER, user);
         arguments.putString(EXTRA_TOPIC, topic);
         return fragment;
     }
 
-    /**
-     * @deprecated Use {@link #newInstance(String, SimpleUser, String)} instead.
-     */
+
     public BroadcastListActivityFragment() {}
 
     @Override
@@ -70,9 +69,9 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
         Bundle arguments = getArguments();
         mUser = arguments.getParcelable(EXTRA_USER);
         if (mUser != null) {
-            mUserIdOrUid = mUser.getIdOrUid();
+            mUserId = mUser.getId();
         } else {
-            mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
+            mUserId = arguments.getLong(EXTRA_USER_ID);
         }
         mTopic = arguments.getString(EXTRA_TOPIC);
 
@@ -104,7 +103,7 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
         TransitionUtils.setupTransitionOnActivityCreated(this);
 
         if (savedInstanceState == null) {
-            FragmentUtils.add(BroadcastListFragment.newInstance(mUserIdOrUid, mTopic), this,
+            FragmentUtils.add(BroadcastListFragment.newInstance(mUserId, mTopic), this,
                     R.id.broadcast_list_fragment);
         }
     }
@@ -151,7 +150,7 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
     private String getTitle() {
         // TODO: Load user.
         if (mUser != null) {
-            return getString(R.string.broadcast_list_title_user_format, mUser.name);
+            return getString(R.string.broadcast_list_title_user_format, mUser.getName());
         } else if (!TextUtils.isEmpty(mTopic)) {
             return getString(R.string.broadcast_list_title_topic_format, mTopic);
         } else {
@@ -169,7 +168,7 @@ public class BroadcastListActivityFragment extends Fragment implements AppBarHos
 
     private String makeUrl() {
         //noinspection deprecation
-        return DoubanUtils.makeBroadcastListUrl(mUser != null ? mUser.getUidOrId() : mUserIdOrUid,
+        return DoubanUtils.makeBroadcastListUrl(mUser != null ? mUser.getId() : mUserId,
                 mTopic);
     }
 }

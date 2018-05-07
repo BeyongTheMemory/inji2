@@ -32,6 +32,7 @@ import me.zhanghai.android.douya.R;
 import me.zhanghai.android.douya.account.util.AccountUtils;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.ui.CrossfadeText;
 import me.zhanghai.android.douya.util.DrawableUtils;
 import me.zhanghai.android.douya.util.ImageUtils;
@@ -150,22 +151,15 @@ public class NavigationHeaderLayout extends FrameLayout {
 
         mActiveAccount = AccountUtils.getActiveAccount();
 
-        User user = mAdapter.getUser(mActiveAccount);
+        UserDTO user = mAdapter.getUser(mActiveAccount);
         if (user != null) {
-            bindAvatarImage(mAvatarImage, user.getLargeAvatarOrAvatar());
-            mNameText.setText(user.name);
-            if (!TextUtils.isEmpty(user.signature)) {
-                mDescriptionText.setText(user.signature);
+            bindAvatarImage(mAvatarImage, user.getHeadUrl());
+            mNameText.setText(user.getName());
+            if (!TextUtils.isEmpty(user.getIntroduction())) {
+                mDescriptionText.setText(user.getIntroduction());
             } else {
                 //noinspection deprecation
-                mDescriptionText.setText(user.uid);
             }
-        } else {
-            SimpleUser partialUser = mAdapter.getPartialUser(mActiveAccount);
-            bindAvatarImage(mAvatarImage, null);
-            mNameText.setText(partialUser.name);
-            //noinspection deprecation
-            mDescriptionText.setText(partialUser.uid);
         }
         mAvatarImage.setOnClickListener(new OnClickListener() {
             @Override
@@ -208,9 +202,9 @@ public class NavigationHeaderLayout extends FrameLayout {
         }
 
         avatarImage.setVisibility(VISIBLE);
-        User user = mAdapter.getUser(account);
+        UserDTO user = mAdapter.getUser(account);
         if (user != null) {
-            bindAvatarImage(avatarImage, user.getLargeAvatarOrAvatar());
+            bindAvatarImage(avatarImage, user.getHeadUrl());
         } else {
             bindAvatarImage(avatarImage, null);
         }
@@ -434,8 +428,7 @@ public class NavigationHeaderLayout extends FrameLayout {
     }
 
     public interface Adapter {
-        SimpleUser getPartialUser(Account account);
-        User getUser(Account account);
+        UserDTO getUser(Account account);
     }
 
     public interface Listener {

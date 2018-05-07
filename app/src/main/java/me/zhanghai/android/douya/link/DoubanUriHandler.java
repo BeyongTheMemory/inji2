@@ -106,7 +106,7 @@ public class DoubanUriHandler {
         Intent intent;
         switch (uriType) {
             case USER_BROADCAST_LIST:
-                intent = BroadcastListActivity.makeIntent(uri.getPathSegments().get(1), context);
+                intent = BroadcastListActivity.makeIntent(Long.parseLong(uri.getPathSegments().get(1)), context);
                 break;
             case TOPIC_BROADCAST_LIST:
                 intent = BroadcastListActivity.makeTopicIntent(uri.getLastPathSegment(), context);
@@ -130,7 +130,7 @@ public class DoubanUriHandler {
             }
             case USER:
             case USER_FRODO:
-                intent = ProfileActivity.makeIntent(uri.getLastPathSegment(), context);
+                intent = ProfileActivity.makeIntent(Long.parseLong(uri.getLastPathSegment()), context);
                 break;
             case USER_FOLLOWER_LIST:
             case USER_FOLLOWER_LIST_FRODO:
@@ -138,8 +138,10 @@ public class DoubanUriHandler {
                 break;
             case USER_FOLLOWING_LIST:
             case USER_FOLLOWING_LIST_FRODO:
-                intent = FollowingListActivity.makeIntent(uri.getPathSegments().get(1), context);
-                break;
+                //todo:关注用户
+                return false;
+              //  intent = FollowingListActivity.makeIntent(uri.getPathSegments().get(1), context);
+              //  break;
             case MOVIE:
             case MOVIE_FRODO:
                 intent = MovieActivity.makeIntent(UriUtils.parseId(uri), context);

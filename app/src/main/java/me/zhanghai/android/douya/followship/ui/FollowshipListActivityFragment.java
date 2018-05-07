@@ -25,7 +25,7 @@ public abstract class FollowshipListActivityFragment extends Fragment {
 
     private static final String KEY_PREFIX = FollowshipListActivityFragment.class.getName() + '.';
 
-    private static final String EXTRA_USER_ID_OR_UID = KEY_PREFIX + "user_id_or_uid";
+    private static final String EXTRA_user_id = KEY_PREFIX + "user_id";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -34,7 +34,7 @@ public abstract class FollowshipListActivityFragment extends Fragment {
 
     protected FollowshipListActivityFragment setArguments(String userIdOrUid) {
         FragmentUtils.ensureArguments(this)
-                .putString(EXTRA_USER_ID_OR_UID, userIdOrUid);
+                .putString(EXTRA_user_id, userIdOrUid);
         return this;
     }
 
@@ -43,7 +43,7 @@ public abstract class FollowshipListActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        mUserIdOrUid = arguments.getString(EXTRA_USER_ID_OR_UID);
+        mUserIdOrUid = arguments.getString(EXTRA_user_id);
 
         setHasOptionsMenu(true);
     }

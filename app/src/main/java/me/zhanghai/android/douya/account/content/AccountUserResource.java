@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import me.zhanghai.android.douya.account.util.AccountUtils;
 import me.zhanghai.android.douya.network.api.info.apiv2.SimpleUser;
 import me.zhanghai.android.douya.network.api.info.apiv2.User;
+import me.zhanghai.android.douya.network.api.info.dto.UserDTO;
 import me.zhanghai.android.douya.user.content.UserResource;
 import me.zhanghai.android.douya.util.FragmentUtils;
 
@@ -54,21 +55,16 @@ public class AccountUserResource extends UserResource {
     public AccountUserResource() {}
 
     protected AccountUserResource setArguments(Account account) {
-        SimpleUser partialUser = makePartialUser(account);
-        super.setArguments(partialUser.getIdOrUid(), partialUser, AccountUtils.getUser(account));
+        UserDTO user = makePartialUser(account);
+        super.setArguments(user.getId(), user);
         FragmentUtils.ensureArguments(this)
                 .putParcelable(EXTRA_ACCOUNT, account);
         return this;
     }
 
-    private SimpleUser makePartialUser(Account account) {
-        SimpleUser partialUser = new SimpleUser();
-        //noinspection deprecation
-        partialUser.id = AccountUtils.getUserId(account);
-        //noinspection deprecation
-        partialUser.uid = String.valueOf(partialUser.id);
-        partialUser.name = AccountUtils.getUserName(account);
-        return partialUser;
+    private UserDTO makePartialUser(Account account) {
+        UserDTO userDTO = AccountUtils.getUser(account);
+        return userDTO;
     }
 
     @Override
@@ -85,26 +81,12 @@ public class AccountUserResource extends UserResource {
     }
 
     @Override
-    protected void onLoadSuccess(User user) {
+    protected void onLoadSuccess(UserDTO user) {
         super.onLoadSuccess(user);
 
-        AccountUtils.setUserName(mAccount, user.name);
+        AccountUtils.setUserName(mAccount, user.getName());
         AccountUtils.setUser(mAccount, user);
     }
 
-    @Deprecated
-    @Override
-    public boolean hasSimpleUser() {
-        throw new IllegalStateException("We always have a (partial) user");
-    }
 
-    @Deprecated
-    @Override
-    public SimpleUser getSimpleUser() {
-        throw new IllegalStateException("Use getPartialUser() instead");
-    }
-
-    public SimpleUser getPartialUser() {
-        return super.getSimpleUser();
-    }
 }
