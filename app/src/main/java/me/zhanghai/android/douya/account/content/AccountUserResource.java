@@ -76,8 +76,9 @@ public class AccountUserResource extends UserResource {
 
     @Override
     protected void loadOnStart() {
+        //todo：原逻辑中在这里做了重新获取用户信息的操作，不知道为毛
         // Always load, so that we can ever get refreshed.
-        onLoadOnStart();
+        super.loadOnStart();
     }
 
     @Override

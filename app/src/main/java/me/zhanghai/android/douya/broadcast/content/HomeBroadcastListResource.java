@@ -62,7 +62,7 @@ public class HomeBroadcastListResource extends TimelineBroadcastListResource {
     public HomeBroadcastListResource() {}
 
     protected HomeBroadcastListResource setArguments() {
-        super.setArguments(null, null);
+        super.setArguments(0L, null);
         return this;
     }
 
