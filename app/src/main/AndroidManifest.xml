@@ -8,7 +8,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="me.zhanghai.android.douya">
+    package="com.top.android.inji">
 
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 

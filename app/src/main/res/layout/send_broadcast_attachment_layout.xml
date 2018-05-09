@@ -9,7 +9,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <me.zhanghai.android.douya.ui.ForegroundRelativeLayout
+    <com.top.android.inji.ui.ForegroundRelativeLayout
         android:id="@+id/sendbroadcastattachmentlayout_link_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_below="@id/broadcastlayout_divider"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <me.zhanghai.android.douya.ui.AutoGoneTextView
+        <com.top.android.inji.ui.AutoGoneTextView
             android:id="@+id/sendbroadcastattachmentlayout_link_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,9 +51,9 @@
             android:layout_below="@id/sendbroadcastattachmentlayout_link_title"
             android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-    </me.zhanghai.android.douya.ui.ForegroundRelativeLayout>
+    </com.top.android.inji.ui.ForegroundRelativeLayout>
 
-    <me.zhanghai.android.douya.ui.UploadImageLayout
+    <com.top.android.inji.ui.UploadImageLayout
         android:id="@+id/sendbroadcastattachmentlayout_single_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:theme="?darkTheme">
 
-        <me.zhanghai.android.douya.ui.NestedRatioHeightRecyclerView
+        <com.top.android.inji.ui.NestedRatioHeightRecyclerView
             android:id="@+id/sendbroadcastattachmentlayout_image_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

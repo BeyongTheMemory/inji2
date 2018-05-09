@@ -21,7 +21,7 @@
         android:paddingBottom="@dimen/card_content_vertical_margin_with_4dp_padding"
         android:gravity="center_vertical">
 
-        <me.zhanghai.android.douya.ui.SimpleCircleImageView
+        <com.top.android.inji.ui.SimpleCircleImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"

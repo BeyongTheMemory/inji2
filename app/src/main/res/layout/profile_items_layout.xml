@@ -27,7 +27,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="?android:textColorSecondary" />
 
-    <me.zhanghai.android.douya.ui.NestedRatioHeightRecyclerView
+    <com.top.android.inji.ui.NestedRatioHeightRecyclerView
         android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <me.zhanghai.android.douya.ui.TintDrawablesTextView
+    <com.top.android.inji.ui.TintDrawablesTextView
         android:id="@+id/view_more"
         android:layout_width="match_parent"
         android:layout_height="@dimen/single_line_list_item_height"

@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.materialprogressbar.MaterialProgressBar
+<com.top.android.materialprogressbar.MaterialProgressBar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_progress"

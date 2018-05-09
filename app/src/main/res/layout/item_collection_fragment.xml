@@ -56,7 +56,7 @@
                     android:clipToPadding="false"
                     android:gravity="center_vertical">
 
-                    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    <com.top.android.materialratingbar.MaterialRatingBar
                         android:id="@+id/rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
             android:text="@string/item_share_to"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <me.zhanghai.android.douya.ui.PreferenceCheckBox
+        <com.top.android.inji.ui.PreferenceCheckBox
             android:id="@+id/share_to_broadcast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
             android:defaultValue="@bool/pref_default_value_item_collection_share_to_broadcast"
             android:text="@string/item_share_to_broadcast" />
 
-        <me.zhanghai.android.douya.ui.PreferenceCheckBox
+        <com.top.android.inji.ui.PreferenceCheckBox
             android:id="@+id/share_to_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <me.zhanghai.android.douya.ui.CounterTextView
+        <com.top.android.inji.ui.CounterTextView
             android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
 
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -234,5 +234,5 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
             </LinearLayout>
         </LinearLayout>
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>

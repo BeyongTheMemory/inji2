@@ -16,7 +16,7 @@
     android:orientation="vertical">
 
     <!-- Setting top and bottom padding on the list so that user can scroll better. -->
-    <me.zhanghai.android.douya.ui.DispatchTouchEventToParentNestedRecyclerView
+    <com.top.android.inji.ui.DispatchTouchEventToParentNestedRecyclerView
         android:id="@+id/award_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

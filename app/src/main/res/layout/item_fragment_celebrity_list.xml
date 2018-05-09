@@ -16,7 +16,7 @@
     android:background="?colorBackgroundFloating"
     android:orientation="vertical">
 
-    <me.zhanghai.android.douya.ui.NestedRecyclerView
+    <com.top.android.inji.ui.NestedRecyclerView
         android:id="@+id/celebrity_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

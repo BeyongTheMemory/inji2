@@ -59,7 +59,7 @@
                     android:textIsSelectable="true" />
             </FrameLayout>
 
-            <me.zhanghai.android.douya.ui.AdapterGridLinearLayout
+            <com.top.android.inji.ui.AdapterGridLinearLayout
                 android:id="@+id/information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

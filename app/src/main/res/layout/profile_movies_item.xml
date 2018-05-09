@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <me.zhanghai.android.douya.profile.ui.ProfileMoviesLayout
+    <com.top.android.inji.profile.ui.ProfileMoviesLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/card_horizontal_margin"

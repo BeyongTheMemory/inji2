@@ -11,8 +11,8 @@ import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 
-import me.zhanghai.android.douya.R;
-import me.zhanghai.android.douya.util.ViewUtils;
+import com.top.android.inji.R;
+import com.top.android.inji.util.ViewUtils;
 
 /**
  * Offers <code>app:progressOffset</code>, <code>app:progressDistanceOffset</code>, and defaults

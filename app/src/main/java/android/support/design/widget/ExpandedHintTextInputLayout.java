@@ -9,7 +9,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import me.zhanghai.android.douya.R;
+import com.top.android.inji.R;
 
 public class ExpandedHintTextInputLayout extends TextInputLayout {
 

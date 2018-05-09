@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <me.zhanghai.android.douya.ui.AutoGoneTextView
+    <com.top.android.inji.ui.AutoGoneTextView
         android:id="@+id/rebroadcasted_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="?android:textColorTertiary" />
 
-    <me.zhanghai.android.douya.ui.FriendlyCardView
+    <com.top.android.inji.ui.FriendlyCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardMaxElevation="@dimen/card_elevation">
 
-        <me.zhanghai.android.douya.broadcast.ui.BroadcastLayout
+        <com.top.android.inji.broadcast.ui.BroadcastLayout
             android:id="@+id/broadcast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </me.zhanghai.android.douya.ui.FriendlyCardView>
+    </com.top.android.inji.ui.FriendlyCardView>
 </LinearLayout>

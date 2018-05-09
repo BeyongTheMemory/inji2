@@ -35,7 +35,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <me.zhanghai.android.douya.ui.ColoredBorderButton
+        <com.top.android.inji.ui.ColoredBorderButton
             android:id="@+id/create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored" />
     </LinearLayout>
 
-    <me.zhanghai.android.douya.ui.AdapterLinearLayout
+    <com.top.android.inji.ui.AdapterLinearLayout
         android:id="@+id/forum_topic_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -18,7 +18,7 @@
     android:paddingBottom="@dimen/content_vertical_space"
     android:clipToPadding="false">
 
-    <me.zhanghai.android.douya.ui.SimpleCircleImageView
+    <com.top.android.inji.ui.SimpleCircleImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/touch_target_size"
         android:layout_height="@dimen/touch_target_size"
@@ -50,7 +50,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        <com.top.android.materialratingbar.MaterialRatingBar
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 app:tint="@drawable/item_collection_vote_tint"
                 tools:ignore="MissingPrefix" />
 
-            <me.zhanghai.android.douya.ui.AutoGoneTextView
+            <com.top.android.inji.ui.AutoGoneTextView
                 android:id="@+id/vote_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -13,7 +13,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId 'me.zhanghai.android.douya'
+        applicationId 'com.top.android.douya'
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 14

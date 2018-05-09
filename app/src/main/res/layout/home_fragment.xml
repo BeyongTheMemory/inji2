@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,7 +31,7 @@
             android:orientation="vertical"
             android:theme="?actionBarTheme">
 
-            <me.zhanghai.android.douya.ui.DoubleClickToolbar
+            <com.top.android.inji.ui.DoubleClickToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
@@ -49,5 +49,5 @@
                 app:tabPaddingStart="@dimen/screen_edge_horizontal_margin"
                 app:tabPaddingEnd="@dimen/screen_edge_horizontal_margin" />
         </LinearLayout>
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>

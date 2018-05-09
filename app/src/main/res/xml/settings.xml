@@ -67,7 +67,7 @@
             android:defaultValue="@bool/pref_default_value_request_desktop_site_in_webview"
             android:summary="@string/settings_request_desktop_site_in_webview_summary" />
 
-        <me.zhanghai.android.douya.settings.ui.CreateNewTaskForWebViewSwitchPreference
+        <com.top.android.inji.settings.ui.CreateNewTaskForWebViewSwitchPreference
             android:key="@string/pref_key_create_new_task_for_webview"
             android:title="@string/settings_create_new_task_for_webview_title"
             android:defaultValue="@bool/pref_default_value_create_new_task_for_webview"
@@ -76,7 +76,7 @@
 
     <PreferenceCategory android:title="@string/settings_about_title">
 
-        <me.zhanghai.android.douya.ui.LicensesDialogPreference android:title="@string/settings_open_source_licenses_title" />
+        <com.top.android.inji.ui.LicensesDialogPreference android:title="@string/settings_open_source_licenses_title" />
 
         <Preference android:title="@string/settings_privacy_policy_title">
             <intent
@@ -86,8 +86,8 @@
 
         <Preference android:title="@string/settings_about_douya_title">
             <intent
-                android:targetPackage="me.zhanghai.android.douya"
-                android:targetClass="me.zhanghai.android.douya.settings.ui.AboutActivity" />
+                android:targetPackage="com.top.android.douya"
+                android:targetClass="com.top.android.douya.settings.ui.AboutActivity" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

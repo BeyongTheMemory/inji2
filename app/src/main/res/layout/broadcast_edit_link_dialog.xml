@@ -22,7 +22,7 @@
         android:paddingBottom="@dimen/dialog_content_padding_bottom_with_8dp_padding"
         android:orientation="vertical">
 
-        <me.zhanghai.android.douya.ui.ExpandedHintMaterialTextInputLayout
+        <com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout
             android:id="@+id/url_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColorHint="?android:textColorSecondary"
             app:errorEnabled="true">
 
-            <me.zhanghai.android.materialedittext.MaterialEditText
+            <com.top.android.materialedittext.MaterialEditText
                 android:id="@+id/url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,21 +40,21 @@
                 android:maxLines="1"
                 android:text="@string/broadcast_send_edit_link_url_hint">
                 <requestFocus />
-            </me.zhanghai.android.materialedittext.MaterialEditText>
-        </me.zhanghai.android.douya.ui.ExpandedHintMaterialTextInputLayout>
+            </com.top.android.materialedittext.MaterialEditText>
+        </com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout>
 
-        <me.zhanghai.android.douya.ui.ExpandedHintMaterialTextInputLayout
+        <com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/broadcast_send_edit_link_title_caption"
             android:textColorHint="?android:textColorSecondary">
 
-            <me.zhanghai.android.materialedittext.MaterialEditText
+            <com.top.android.materialedittext.MaterialEditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/broadcast_send_edit_link_title_hint"
                 android:maxLines="1" />
-        </me.zhanghai.android.douya.ui.ExpandedHintMaterialTextInputLayout>
+        </com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout>
     </LinearLayout>
 </ScrollView>

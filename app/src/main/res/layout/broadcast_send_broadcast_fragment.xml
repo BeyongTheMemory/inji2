@@ -39,7 +39,7 @@
                 <requestFocus />
             </EditText>
 
-            <me.zhanghai.android.douya.broadcast.ui.SendBroadcastAttachmentLayout
+            <com.top.android.inji.broadcast.ui.SendBroadcastAttachmentLayout
                 android:id="@+id/attachment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -155,7 +155,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <me.zhanghai.android.douya.ui.CounterTextView
+        <com.top.android.inji.ui.CounterTextView
             android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
     </LinearLayout>
 
     <!-- Appbar layout must be on top of content so that transition can have correct z-order. -->
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -181,5 +181,5 @@
             app:navigationIcon="@drawable/close_icon_white_24dp"
             app:popupTheme="?actionBarPopupTheme"
             app:titleMarginStart="@dimen/toolbar_title_left_margin" />
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>

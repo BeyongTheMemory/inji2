@@ -14,7 +14,7 @@
     android:layout_marginTop="@dimen/item_content_card_margin"
     android:layout_marginBottom="@dimen/item_content_card_margin">
 
-    <me.zhanghai.android.douya.ui.FriendlyCardView
+    <com.top.android.inji.ui.FriendlyCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/card_shadow_horizontal_margin"
@@ -57,12 +57,12 @@
                     android:textColor="?colorControlActivated" />
             </LinearLayout>
 
-            <me.zhanghai.android.douya.ui.AdapterLinearLayout
+            <com.top.android.inji.ui.AdapterLinearLayout
                 android:id="@+id/related_doulist_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_content_vertical_space_half"
                 android:orientation="vertical" />
         </LinearLayout>
-    </me.zhanghai.android.douya.ui.FriendlyCardView>
+    </com.top.android.inji.ui.FriendlyCardView>
 </FrameLayout>

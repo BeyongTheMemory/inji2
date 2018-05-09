@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <me.zhanghai.android.douya.ui.PercentageWidthView
+        <com.top.android.inji.ui.PercentageWidthView
             android:id="@+id/rating_distribution_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

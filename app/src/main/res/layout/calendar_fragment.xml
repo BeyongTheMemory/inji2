@@ -30,11 +30,11 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <me.zhanghai.android.douya.ui.TallFrameLayout
+        <com.top.android.inji.ui.TallFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <include layout="@layout/calendar_layout" />
-        </me.zhanghai.android.douya.ui.TallFrameLayout>
+        </com.top.android.inji.ui.TallFrameLayout>
     </ScrollView>
 </LinearLayout>

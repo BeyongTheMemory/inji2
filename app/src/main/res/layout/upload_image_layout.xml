@@ -7,7 +7,7 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <me.zhanghai.android.douya.ui.RatioImageView
+    <com.top.android.inji.ui.RatioImageView
         android:id="@+id/uploadimagelayout_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -24,7 +24,7 @@
         android:background="@color/dark_30_percent"
         android:src="@drawable/gif_icon_white_36dp" />
 
-    <me.zhanghai.android.douya.ui.ForegroundImageButton
+    <com.top.android.inji.ui.ForegroundImageButton
         android:id="@+id/uploadimagelayout_remove"
         android:layout_width="48dp"
         android:layout_height="48dp"

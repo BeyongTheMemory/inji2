@@ -25,12 +25,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <me.zhanghai.android.douya.item.ui.RatingLayout
+        <com.top.android.inji.item.ui.RatingLayout
             android:id="@+id/rating_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <me.zhanghai.android.douya.item.ui.RatingDistributionLayout
+        <com.top.android.inji.item.ui.RatingDistributionLayout
             android:id="@+id/rating_distribution_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.douya.item.ui.BadgeListLayout
+<com.top.android.inji.item.ui.BadgeListLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/badge_list_layout"
     android:layout_width="match_parent"

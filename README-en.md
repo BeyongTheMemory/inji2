@@ -8,7 +8,7 @@ Yet another Material Design Android app for [Douban](https://www.douban.com).
 
 ![Travis CI](https://travis-ci.org/DreaminginCodeZH/Douya.svg)
 
-<!--<a href="https://play.google.com/store/apps/details?id=me.zhanghai.android.douya" target="_blank"><img alt="Google Play" height="90" src="https://play.google.com/intl/en_US/badges/images/generic/en_badge_web_generic.png"/></a>-->
+<!--<a href="https://play.google.com/store/apps/details?id=com.top.android.douya" target="_blank"><img alt="Google Play" height="90" src="https://play.google.com/intl/en_US/badges/images/generic/en_badge_web_generic.png"/></a>-->
 
 Download: [Douya Latest Release Build](https://github.com/DreaminginCodeZH/Douya/releases/latest)
 

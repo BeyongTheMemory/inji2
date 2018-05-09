@@ -12,7 +12,7 @@
     android:foreground="?selectableItemBackground"
     android:orientation="vertical">
 
-    <me.zhanghai.android.douya.ui.RatioImageView
+    <com.top.android.inji.ui.RatioImageView
         android:id="@+id/cover"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_recommendation_cover_height"

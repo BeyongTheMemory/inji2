@@ -43,7 +43,7 @@
                     android:scrollbarStyle="outsideOverlay" />
             </android.support.v4.widget.FriendlySwipeRefreshLayout>
 
-            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            <com.top.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         android:elevation="@dimen/appbar_elevation"
         android:orientation="horizontal">
 
-        <me.zhanghai.android.materialedittext.MaterialEditText
+        <com.top.android.materialedittext.MaterialEditText
             android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,9 +83,9 @@
             android:hint="@string/broadcast_send_comment_hint"
             android:maxLines="4">
             <requestFocus />
-        </me.zhanghai.android.materialedittext.MaterialEditText>
+        </com.top.android.materialedittext.MaterialEditText>
 
-        <me.zhanghai.android.douya.ui.GetOnLongClickListenerImageButton
+        <com.top.android.inji.ui.GetOnLongClickListenerImageButton
             android:id="@+id/send"
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
@@ -99,12 +99,12 @@
     </LinearLayout>
 
     <!-- Appbar layout must be on top of content so that transition can have correct z-order. -->
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <me.zhanghai.android.douya.ui.DoubleClickToolbar
+        <com.top.android.inji.ui.DoubleClickToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
@@ -116,5 +116,5 @@
             app:navigationIcon="@drawable/back_icon_white_24dp"
             app:popupTheme="?actionBarPopupTheme"
             app:titleMarginStart="@dimen/toolbar_title_left_margin" />
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>

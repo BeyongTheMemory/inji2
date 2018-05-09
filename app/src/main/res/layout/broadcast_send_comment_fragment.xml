@@ -33,7 +33,7 @@
     </ScrollView>
 
     <!-- Appbar layout must be on top of content so that transition can have correct z-order. -->
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,5 +50,5 @@
             app:navigationIcon="@drawable/close_icon_white_24dp"
             app:popupTheme="?actionBarPopupTheme"
             app:titleMarginStart="@dimen/toolbar_title_left_margin" />
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>

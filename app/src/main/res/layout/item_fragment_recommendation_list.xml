@@ -13,7 +13,7 @@
     android:layout_marginRight="@dimen/item_content_card_margin"
     android:layout_marginTop="@dimen/item_content_card_margin">
 
-    <me.zhanghai.android.douya.ui.FriendlyCardView
+    <com.top.android.inji.ui.FriendlyCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/card_shadow_horizontal_margin"
@@ -57,7 +57,7 @@
                     android:textColor="?colorControlActivated" />
             </LinearLayout>
 
-            <me.zhanghai.android.douya.ui.NestedRecyclerView
+            <com.top.android.inji.ui.NestedRecyclerView
                 android:id="@+id/recommendation_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,5 +66,5 @@
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay" />
         </LinearLayout>
-    </me.zhanghai.android.douya.ui.FriendlyCardView>
+    </com.top.android.inji.ui.FriendlyCardView>
 </FrameLayout>

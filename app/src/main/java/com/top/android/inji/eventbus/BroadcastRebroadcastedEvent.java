@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2017 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * All Rights Reserved.
+ */
+
+package com.top.android.inji.eventbus;
+
+import com.top.android.inji.network.api.info.frodo.Broadcast;
+
+import com.top.android.inji.network.api.info.frodo.Broadcast;
+
+public class BroadcastRebroadcastedEvent extends Event {
+
+    public long broadcastId;
+
+    public Broadcast rebroadcastBroadcast;
+
+    public BroadcastRebroadcastedEvent(long broadcastId, Broadcast rebroadcastBroadcast,
+                                       Object source) {
+        super(source);
+
+        this.broadcastId = broadcastId;
+        this.rebroadcastBroadcast = rebroadcastBroadcast;
+    }
+}

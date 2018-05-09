@@ -35,7 +35,7 @@
         android:baselineAlignedChildIndex="1"
         android:orientation="vertical">
 
-        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        <com.top.android.materialratingbar.MaterialRatingBar
             android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

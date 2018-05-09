@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.douya.ui.UploadImageLayout
+<com.top.android.inji.ui.UploadImageLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/image"

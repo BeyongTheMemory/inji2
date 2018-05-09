@@ -24,7 +24,7 @@
             android:foreground="?selectableItemBackground"
             android:theme="?darkTheme">
 
-            <me.zhanghai.android.douya.ui.RatioImageView
+            <com.top.android.inji.ui.RatioImageView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,12 +52,12 @@
         </FrameLayout>
     </FrameLayout>
 
-    <me.zhanghai.android.douya.ui.ContentStateLayout
+    <com.top.android.inji.ui.ContentStateLayout
         android:id="@+id/contentState"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.zhanghai.android.douya.item.ui.ItemContentRecyclerView
+        <com.top.android.inji.item.ui.ItemContentRecyclerView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -66,15 +66,15 @@
             android:scrollbarStyle="outsideOverlay" />
 
         <include layout="@layout/item_fragment_content_state_views" />
-    </me.zhanghai.android.douya.ui.ContentStateLayout>
+    </com.top.android.inji.ui.ContentStateLayout>
 
-    <me.zhanghai.android.douya.ui.AppBarWrapperLayout
+    <com.top.android.inji.ui.AppBarWrapperLayout
         android:id="@+id/appBarWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <me.zhanghai.android.douya.ui.TransparentDoubleClickToolbar
+        <com.top.android.inji.ui.TransparentDoubleClickToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
@@ -86,5 +86,5 @@
             app:navigationIcon="@drawable/back_icon_white_24dp"
             app:popupTheme="?actionBarPopupTheme"
             app:titleMarginStart="@dimen/toolbar_title_left_margin" />
-    </me.zhanghai.android.douya.ui.AppBarWrapperLayout>
+    </com.top.android.inji.ui.AppBarWrapperLayout>
 </FrameLayout>
