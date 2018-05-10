@@ -31,7 +31,7 @@
             android:textColorHint="?android:textColorSecondary"
             app:errorEnabled="true">
 
-            <com.top.android.materialedittext.MaterialEditText
+            <me.zhanghai.android.materialedittext.MaterialEditText
                 android:id="@+id/url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:maxLines="1"
                 android:text="@string/broadcast_send_edit_link_url_hint">
                 <requestFocus />
-            </com.top.android.materialedittext.MaterialEditText>
+            </me.zhanghai.android.materialedittext.MaterialEditText>
         </com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout>
 
         <com.top.android.inji.ui.ExpandedHintMaterialTextInputLayout
@@ -49,7 +49,7 @@
             android:hint="@string/broadcast_send_edit_link_title_caption"
             android:textColorHint="?android:textColorSecondary">
 
-            <com.top.android.materialedittext.MaterialEditText
+            <me.zhanghai.android.materialedittext.MaterialEditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -73,7 +73,7 @@
         android:elevation="@dimen/appbar_elevation"
         android:orientation="horizontal">
 
-        <com.top.android.materialedittext.MaterialEditText
+        <me.zhanghai.android.materialedittext.MaterialEditText
             android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:hint="@string/broadcast_send_comment_hint"
             android:maxLines="4">
             <requestFocus />
-        </com.top.android.materialedittext.MaterialEditText>
+        </me.zhanghai.android.materialedittext.MaterialEditText>
 
         <com.top.android.inji.ui.GetOnLongClickListenerImageButton
             android:id="@+id/send"

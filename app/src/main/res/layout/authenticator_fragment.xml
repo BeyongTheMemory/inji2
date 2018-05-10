@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.top.android.materialedittext.MaterialTextInputLayout
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/username_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,14 +67,14 @@
                     android:hint="@string/auth_username"
                     app:errorEnabled="true">
 
-                    <com.top.android.materialedittext.MaterialEditText
+                    <me.zhanghai.android.materialedittext.MaterialEditText
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress" />
-                </com.top.android.materialedittext.MaterialTextInputLayout>
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <com.top.android.materialedittext.MaterialTextInputLayout
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/password_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     app:errorEnabled="true"
                     app:passwordToggleEnabled="true">
 
-                    <com.top.android.materialedittext.MaterialEditText
+                    <me.zhanghai.android.materialedittext.MaterialEditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                         android:imeActionLabel="@string/auth_sign_in"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword" />
-                </com.top.android.materialedittext.MaterialTextInputLayout>
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                 <Button
                     android:id="@+id/sign_in"
@@ -120,7 +120,7 @@
                     style="?borderlessButtonStyle" />
             </LinearLayout>
 
-            <com.top.android.materialprogressbar.MaterialProgressBar
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
